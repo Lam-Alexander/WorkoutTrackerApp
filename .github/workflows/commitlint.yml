@@ -3,12 +3,10 @@ name: "Commit Message Lint"
 on:
   push:
     branches:
-      - main
-      - 'feature/**'
-      - 'fix/**'
+      - "**" # all branches
   pull_request:
     branches:
-      - main
+      - "**" # all PR targets
 
 jobs:
   commitlint:
@@ -20,7 +18,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install Commitlint
         run: npm install -g @commitlint/{cli,config-conventional}
