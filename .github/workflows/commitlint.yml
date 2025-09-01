@@ -1,0 +1,30 @@
+name: "Commit Message Lint"
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/**'
+      - 'fix/**'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install Commitlint
+        run: npm install -g @commitlint/{cli,config-conventional}
+
+      - name: Lint commits
+        run: |
+          git log origin/main..HEAD --pretty=format:%s | npx commitlint --config commitlint.config.js
