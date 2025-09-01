@@ -26,5 +26,4 @@ jobs:
         run: npm install -g @commitlint/{cli,config-conventional}
 
       - name: Lint commits
-        run: |
-          git log origin/main..HEAD --pretty=format:%s | npx commitlint --config commitlint.config.js
+        run: npx commitlint --config commitlint.config.js --from=origin/main --to=HEAD
