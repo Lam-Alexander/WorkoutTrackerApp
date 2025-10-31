@@ -1,14 +1,29 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // Or other Material Design icon sets like MaterialIcons
 
 export default function TabLayout() {
   return (
-    <Tabs screenOptions={{ tabBarActiveTintColor: 'blue' }}>
+    <Tabs screenOptions={{ tabBarActiveTintColor: '#6FCABA' }}>
       <Tabs.Screen
         name="home"
         options={{
-          title: 'home',
+          title: 'Home',
           tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="workout"
+        options={{
+          title: 'Workout',
+          tabBarIcon: ({ color }) => <Icon name="dumbbell" size={28} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="progress"
+        options={{
+          title: 'Progress',
+          tabBarIcon: ({ color }) => <Icon name="chart-line" size={28} color={color} />,
         }}
       />
       <Tabs.Screen
