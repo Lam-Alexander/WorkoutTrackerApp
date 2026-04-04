@@ -22,7 +22,7 @@ const SessionProvider = ({ children }: { children: React.ReactNode }) => {
     const { data: subscription } = supabase.auth.onAuthStateChange(
       (_event, session) => {
         setSession(session);
-      }
+      },
     );
 
     //3. Cleanup: unsubscribe when componet unmounts
@@ -41,7 +41,7 @@ const useSession = () => {
   if (context === undefined) {
     throw new Error("SessionContext was used outside of the Session Provider");
   }
-  console.log(context)
+  console.log(context);
   return context;
 };
 
