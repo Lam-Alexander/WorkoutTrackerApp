@@ -4,7 +4,7 @@ import { supabase } from "../../lib/supabase";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CustomInput } from "../../components/shared/CustomInput";
 import { CustomButton } from "../../components/shared/CustomButton";
-import { useRouter } from "expo-router";
+import { Redirect, useRouter } from "expo-router";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -12,34 +12,70 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
 
   const signUpWithEmail = async () => {
+    // reset previous error
+    setErrorMessage("");
+
+    // check empty field first
+    if (
+      !name.trim() ||
+      !email.trim() ||
+      !password.trim() ||
+      !confirmPassword.trim()
+    ) {
+      Alert.alert("Please fill in all fields");
+      return;
+    }
+
+    // check password match
+    if (password !== confirmPassword) {
+      setErrorMessage("Passwords do not match");
+      return;
+    }
+
     setLoading(true);
 
-    const result = await supabase.auth.signUp({
-      email: email,
-      password: password,
-      options: {
-        data: {
-          display_name:name
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email: email,
+        password: password,
+        options: {
+          data: {
+            display_name: name,
+          },
         },
-      },
-    });
-    console.log(JSON.stringify(result, null, 2));
-    const { data, error } = result;
-    const { session } = data;
+      });
+      // console.log(JSON.stringify(result, null, 2));
 
-    if (error !== null) {
-      Alert.alert(error.message);
-      return;
-    }
+      if (error !== null) {
+        Alert.alert(error.message);
+        return;
+      }
 
-    if (session === null) {
-      Alert.alert("Please check you inbox for email verification");
-      return;
+      if (data.session === null) {
+        Alert.alert(
+          "Check your inbox",
+          "If you're new, you'll get a verification email. If not, try signing in.",
+        );
+        setName("");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+
+        router.push("./login");
+        return;
+      }
+    } catch (err) {
+      console.log(err);
+      Alert.alert(
+        "Unexcepted run time error, Check the console for more details",
+      );
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
@@ -113,6 +149,13 @@ const Signup = () => {
             secureTextEntry={true}
           />
         </View>
+
+        {errorMessage !== "" && (
+          <Text style={{ color: "red", textAlign: "center" }}>
+            {errorMessage}
+          </Text>
+        )}
+
         <View
           style={{
             flex: 1,
