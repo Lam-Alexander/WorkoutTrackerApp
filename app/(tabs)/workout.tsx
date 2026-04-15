@@ -3,7 +3,7 @@ import React from 'react'
 
 const workout = () => {
   return (
-    <View>
+    <View style={styles.container}>
       <Text>workout</Text>
     </View>
   )
@@ -11,4 +11,9 @@ const workout = () => {
 
 export default workout
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "black"
+  }
+})

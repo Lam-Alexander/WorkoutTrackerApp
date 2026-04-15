@@ -18,7 +18,7 @@ export const CustomInput: React.FC<CustomInputProps> = ({
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
-  const primaryFocusColour = "#6FCABA";
+  const primaryFocusColour = "#3DD8C3";
   const defaultColour = "#797979";
   const defaultPlaceholderColour = "#A0A0A0";
 
