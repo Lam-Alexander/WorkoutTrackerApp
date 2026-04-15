@@ -92,7 +92,7 @@ const App = () => {
               {({ pressed }) => (
                 <Text
                   style={{
-                    color: pressed ? "#00dfc0" : "#6FCABA",
+                    color: pressed ? "#00dfc0" : "#3DD8C3",
                     fontWeight: "bold",
                     fontSize: normalize(15),
                   }}

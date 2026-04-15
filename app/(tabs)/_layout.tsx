@@ -1,6 +1,7 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // Or other Material Design icon sets like MaterialIcons
+import { StyleSheet } from 'react-native';
 
 export default function TabLayout() {
   return (
@@ -8,6 +9,8 @@ export default function TabLayout() {
       <Tabs.Screen
         name="home"
         options={{
+          headerTitle:"",
+          headerTransparent: true,
           title: 'Home',
           tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
         }}
@@ -36,3 +39,4 @@ export default function TabLayout() {
     </Tabs>
   );
 }
+

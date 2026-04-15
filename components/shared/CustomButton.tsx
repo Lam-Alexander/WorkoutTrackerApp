@@ -24,7 +24,7 @@ export const CustomButton: React.FC<CustomButtonProps> = ({
       buttonStyle={{
         borderRadius: 5,
         backgroundColor:
-          type === "solid" ? "#6fcaba" : undefined,
+          type === "solid" ? "#3DD8C3" : undefined,
       }}
       {...props}
     />
