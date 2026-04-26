@@ -1,42 +1,65 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Tabs } from 'expo-router';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // Or other Material Design icon sets like MaterialIcons
-import { StyleSheet } from 'react-native';
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { Tabs } from "expo-router";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons"; // Or other Material Design icon sets like MaterialIcons
+import { StyleSheet } from "react-native";
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+
+// Link to icon https://icons.expo.fyi/Index
 
 export default function TabLayout() {
   return (
-    <Tabs screenOptions={{ tabBarActiveTintColor: '#6FCABA' }}>
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: "#6FCABA",
+        tabBarStyle: {
+          paddingTop: 15,
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+        },
+      }}
+    >
       <Tabs.Screen
         name="home"
         options={{
-          headerTitle:"",
+          headerTitle: "",
           headerTransparent: true,
-          title: 'Home',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
+          title: "Home",
+          tabBarIcon: ({ color }) => (
+            <FontAwesome size={28} name="home" color={color} />
+          ),
         }}
       />
       <Tabs.Screen
         name="workout"
         options={{
-          title: 'Workout',
-          tabBarIcon: ({ color }) => <Icon name="dumbbell" size={28} color={color} />,
+          title: "workout",
+          headerTitle: "",
+          // headerTransparent: true,
+          tabBarIcon: ({ color }) => (
+            <FontAwesome6 name="dumbbell" size={24} color={color} />
+            
+          ),
         }}
       />
       <Tabs.Screen
         name="progress"
         options={{
-          title: 'Progress',
-          tabBarIcon: ({ color }) => <Icon name="chart-line" size={28} color={color} />,
+          title: "Progress",
+          tabBarIcon: ({ color }) => (
+            <Icon name="chart-line" size={28} color={color} />
+          ),
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
-          title: 'Settings',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="cog" color={color} />,
+          title: "Settings",
+          tabBarIcon: ({ color }) => (
+            <FontAwesome size={28} name="cog" color={color} />
+          ),
         }}
       />
     </Tabs>
   );
 }
-

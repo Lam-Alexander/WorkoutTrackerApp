@@ -15,9 +15,9 @@ const App = () => {
   const normalize = (size: number) =>
     Math.round(PixelRatio.roundToNearestPixel(size * scale));
 
-  // if (session && session.user) {
-  //   return <Redirect href="/home" />;
-  // }
+  if (session && session.user) {
+    return <Redirect href="/workout" />;
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
