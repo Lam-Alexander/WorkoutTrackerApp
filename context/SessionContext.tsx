@@ -41,7 +41,7 @@ const useSession = () => {
   if (context === undefined) {
     throw new Error("SessionContext was used outside of the Session Provider");
   }
-  console.log(context);
+  // console.log(context);
   return context;
 };
 

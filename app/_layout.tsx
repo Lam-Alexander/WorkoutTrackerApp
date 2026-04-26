@@ -13,7 +13,7 @@ export default function Layout() {
           name="auth"
           options={{
             title: "",
-            // This is responabile for the black and white header in get auth
+            // This is responabile for the black and white header in get 
             headerStyle: { backgroundColor: "black" },
             headerTintColor: "white",
           }}

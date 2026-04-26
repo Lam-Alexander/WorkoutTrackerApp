@@ -7,14 +7,14 @@ interface CustomButtonProps extends ButtonProps {
   onPress: () => void;
 }
 
-export const CustomButton: React.FC<CustomButtonProps> = ({
+export const CustomButton = ({
   title,
   loading,
   onPress,
   buttonStyle,
   type,
   ...props
-}) => {
+}: CustomButtonProps) => {
   return (
     <Button
       title={title}

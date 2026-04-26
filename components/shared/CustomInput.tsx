@@ -5,7 +5,7 @@ interface CustomInputProps extends InputProps {
   label?: string;
 }
 
-export const CustomInput: React.FC<CustomInputProps> = ({
+export const CustomInput = ({
   label,
   onChangeText,
   value,
@@ -15,7 +15,7 @@ export const CustomInput: React.FC<CustomInputProps> = ({
   onBlur,
   placeholderTextColor,
   ...props
-}) => {
+}: CustomInputProps) => {
   const [isFocused, setIsFocused] = useState(false);
 
   const primaryFocusColour = "#3DD8C3";
