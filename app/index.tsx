@@ -77,7 +77,7 @@ const App = () => {
             title="Continue as guest"
             type="clear"
             onPress={() => router.push("/(tabs)/home")}
-            containerStyle={{ width: "45%", marginBottom: 20 }}
+            containerStyle={{marginBottom: 20 }}
           />
           <View
             style={{

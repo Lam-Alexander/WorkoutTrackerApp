@@ -1,9 +1,9 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Tabs } from "expo-router";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"; // Or other Material Design icon sets like MaterialIcons
-import { StyleSheet } from "react-native";
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
-
+import { Platform, StyleSheet } from "react-native";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import type { BottomTabNavigator } from "expo-router/build/layouts/TabsClient";
 // Link to icon https://icons.expo.fyi/Index
 
 export default function TabLayout() {
@@ -12,7 +12,11 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: "#6FCABA",
         tabBarStyle: {
-          paddingTop: 15,
+          paddingTop: Platform.select({
+            ios: 10,
+            android: 5,
+            default: 10,
+          }),
         },
         tabBarLabelStyle: {
           fontSize: 12,
@@ -38,7 +42,6 @@ export default function TabLayout() {
           // headerTransparent: true,
           tabBarIcon: ({ color }) => (
             <FontAwesome6 name="dumbbell" size={24} color={color} />
-            
           ),
         }}
       />

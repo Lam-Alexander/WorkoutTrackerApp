@@ -1,23 +1,27 @@
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import React, { useState } from "react";
 import SelectableBox from "../../components/shared/SelectableBox";
+import { PersonStanding, Shield, MoveDiagonal2 } from "lucide-react-native";
 
 const Data = [
   {
     title: "Push",
     description: "Squats, Romanian deadlifts, leg press, lunges",
-    image: ""
+    icon: PersonStanding,
+    label: "person-standing",
   },
 
   {
     title: "Pull",
     description: "Rows, pull-ups, pulldowns, rear delts, biceps",
-    image:""
+    icon: Shield,
+    label: "shield",
   },
   {
     title: "Legs",
     description: "Bench, shoulder press, incline work, triceps",
-    image:""
+    icon: MoveDiagonal2,
+    label: "move-diagonal-l2",
   },
 ];
 
@@ -53,15 +57,17 @@ const workout = () => {
           </Text>
         </View>
       </View>
-      <View style={styles.selectableBoxContainer}>
+      <View style={styles.workoutSplitContainer}>
         <Text style={styles.workoutSplitTitle}>Workout Split</Text>
-        <Text style={[styles.defaultText, { marginLeft: 25, marginRight: 25 }]}>
+        <Text style={styles.workoutSplitDescription}>
           Start with a common split or choose a combined day when you want more
           variety.
         </Text>
         {Data.map((item, index) => (
           <SelectableBox
             key={item.title}
+            icon={item.icon}
+            label={item.label}
             title={item.title}
             description={item.description}
             selected={selected === index}
@@ -84,21 +90,25 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#94A3B8",
     fontWeight: "500",
+    flexWrap: "wrap",
   },
 
   container: {
     flex: 1,
-    // backgroundColor: "#FCFCFC",
+    backgroundColor: "#FCFCFC",
   },
+
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-start",
   },
+
   title: {
     fontSize: 32,
     fontWeight: "bold",
   },
+  
   dayPlanContainer: {
     backgroundColor: "#E6FFFA",
     paddingHorizontal: 12,
@@ -113,20 +123,37 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
 
-  selectableBoxContainer: {
+  workoutSplitContainer: {
     backgroundColor: "white",
-    marginLeft: 25,
-    marginRight: 25,
+    marginLeft: 10,
+    marginRight: 10,
     borderRadius: 12,
     paddingTop: 15,
     paddingBottom: 15,
+
+    // iOS shadow
+  shadowColor: "#000",
+  shadowOffset: { width: 0, height: 4 },
+  shadowOpacity: 0.1,
+  shadowRadius: 6,
+
+  // Android shadow
+  elevation: 3,
   },
 
   workoutSplitTitle: {
     marginLeft: 25,
     fontSize: 20,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
 
-  workoutSplitDescription: {},
+  workoutSplitDescription: {
+    fontSize: 16,
+    color: "#94A3B8",
+    fontWeight: "500",
+    flexWrap: "wrap",
+    marginLeft: 25,
+    marginRight: 25,
+    marginBottom: 15
+  },
 });
