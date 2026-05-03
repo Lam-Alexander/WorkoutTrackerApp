@@ -5,7 +5,7 @@ interface CustomInputProps extends InputProps {
   label?: string;
 }
 
-export const CustomInput = ({
+export const AuthCustomInput = ({
   label,
   onChangeText,
   value,

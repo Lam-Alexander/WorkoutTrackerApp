@@ -1,10 +1,7 @@
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Tabs } from "expo-router";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons"; // Or other Material Design icon sets like MaterialIcons
-import { Platform, StyleSheet } from "react-native";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import type { BottomTabNavigator } from "expo-router/build/layouts/TabsClient";
-// Link to icon https://icons.expo.fyi/Index
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { Platform } from "react-native";
+import { House, Dumbbell, ChartColumn, Settings } from "lucide-react-native";
 
 export default function TabLayout() {
   return (
@@ -29,9 +26,7 @@ export default function TabLayout() {
           headerTitle: "",
           headerTransparent: true,
           title: "Home",
-          tabBarIcon: ({ color }) => (
-            <FontAwesome size={28} name="home" color={color} />
-          ),
+          tabBarIcon: ({ color }) => <House size={28} color={color} />,
         }}
       />
       <Tabs.Screen
@@ -39,28 +34,22 @@ export default function TabLayout() {
         options={{
           title: "workout",
           headerTitle: "",
-          // headerTransparent: true,
-          tabBarIcon: ({ color }) => (
-            <FontAwesome6 name="dumbbell" size={24} color={color} />
-          ),
+          headerTransparent: true,
+          tabBarIcon: ({ color }) => <Dumbbell size={28} color={color} />,
         }}
       />
       <Tabs.Screen
         name="progress"
         options={{
           title: "Progress",
-          tabBarIcon: ({ color }) => (
-            <Icon name="chart-line" size={28} color={color} />
-          ),
+          tabBarIcon: ({ color }) => <ChartColumn size={28} color={color} />,
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
           title: "Settings",
-          tabBarIcon: ({ color }) => (
-            <FontAwesome size={28} name="cog" color={color} />
-          ),
+          tabBarIcon: ({ color }) => <Settings size={28} color={color} />,
         }}
       />
     </Tabs>
