@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Button } from "react-native";
 import React from "react";
 import { Router, useRouter } from "expo-router";
-import { supabase } from "../../lib/supabase";
+import { supabase } from "../../../lib/supabase";
 
 
 const settings = () => {

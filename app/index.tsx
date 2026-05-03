@@ -4,7 +4,7 @@ import { Redirect, useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSession } from "../context/SessionContext";
 import React from "react";
-import { CustomButton } from "../components/shared/CustomButton";
+import { AuthCustomButton } from "../components/auth/AuthCustomButton";
 
 const App = () => {
   const router = useRouter();
@@ -65,19 +65,19 @@ const App = () => {
           </Text>
         </View>
 
-        <View style={{alignItems:"center"}}>
-          <CustomButton
+        <View style={{ alignItems: "center" }}>
+          <AuthCustomButton
             title="Get Started"
             type="solid"
             onPress={() => router.navigate("/auth/signup")}
-            containerStyle={{width: "80%", marginBottom: 20, }}
+            containerStyle={{ width: "80%", marginBottom: 20 }}
           />
 
-          <CustomButton
+          <AuthCustomButton
             title="Continue as guest"
             type="clear"
             onPress={() => router.push("/(tabs)/home")}
-            containerStyle={{marginBottom: 20 }}
+            containerStyle={{ marginBottom: 20 }}
           />
           <View
             style={{

@@ -2,8 +2,8 @@ import { Alert, StyleSheet, Text, View, Pressable } from "react-native";
 import React, { useState } from "react";
 import { supabase } from "../../lib/supabase";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { CustomInput } from "../../components/shared/CustomInput";
-import { CustomButton } from "../../components/shared/CustomButton";
+import { AuthCustomInput } from "../../components/auth/AuthCustomInput";
+import { AuthCustomButton } from "../../components/auth/AuthCustomButton";
 import { Redirect, useRouter } from "expo-router";
 
 const Signup = () => {
@@ -105,7 +105,7 @@ const Signup = () => {
           </Text>
         </View>
         <View style={{ marginTop: 30, marginBottom: -30, padding: 15 }}>
-          <CustomInput
+          <AuthCustomInput
             label="Name"
             leftIcon={{ type: "font-awesome", name: "user", size: 30 }}
             onChangeText={(text) => setName(text)}
@@ -113,7 +113,7 @@ const Signup = () => {
             placeholder=" Name"
           />
 
-          <CustomInput
+          <AuthCustomInput
             label="Email"
             leftIcon={{
               type: "font-awesome",
@@ -123,7 +123,7 @@ const Signup = () => {
             value={email}
             placeholder=" Email@address.com"
           />
-          <CustomInput
+          <AuthCustomInput
             label="Password"
             leftIcon={{
               type: "font-awesome",
@@ -136,7 +136,7 @@ const Signup = () => {
             secureTextEntry={true}
           />
 
-          <CustomInput
+          <AuthCustomInput
             label="Confirm Password"
             leftIcon={{
               type: "font-awesome",
@@ -163,7 +163,7 @@ const Signup = () => {
             justifyContent: "space-evenly",
           }}
         >
-          <CustomButton
+          <AuthCustomButton
             title="Register"
             onPress={() => signUpWithEmail()}
             type="solid"

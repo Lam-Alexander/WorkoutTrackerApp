@@ -7,7 +7,7 @@ interface CustomButtonProps extends ButtonProps {
   onPress: () => void;
 }
 
-export const CustomButton = ({
+export const AuthCustomButton = ({
   title,
   loading,
   onPress,

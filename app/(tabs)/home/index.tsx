@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { useRouter } from "expo-router";
-import { useSession } from "../../context/SessionContext";
+import { useSession } from "../../../context/SessionContext";
 import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "react-native";
 

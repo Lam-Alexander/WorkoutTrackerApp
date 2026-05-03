@@ -14,8 +14,8 @@ export default function Layout() {
           options={{
             title: "",
             // This is responabile for the black and white header in get 
-            headerStyle: { backgroundColor: "black" },
-            headerTintColor: "white",
+            // headerStyle: { backgroundColor: "white" },
+            headerTintColor: "#2AD4B2",
           }}
         />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />

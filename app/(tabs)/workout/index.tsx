@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import React, { useState } from "react";
-import SelectableBox from "../../components/shared/SelectableBox";
-import { PersonStanding, Shield, MoveDiagonal2 } from "lucide-react-native";
+import SelectableBox from "../../../components/shared/SelectableBox";
+import { PersonStanding, Shield, MoveDiagonal2, SlidersHorizontal, ArrowRight } from "lucide-react-native";
+import { AppCustomButton } from "../../../components/shared/AppCustomButton";
 
 const Data = [
   {
@@ -27,12 +28,15 @@ const Data = [
 
 const workout = () => {
   const [selected, setSelected] = useState<number | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const today = new Date().toLocaleDateString("en-US", {
     weekday: "long",
     month: "short",
     day: "numeric",
   });
+
+  const handleSubmit = () => {};
 
   return (
     <ScrollView style={styles.container}>
@@ -75,6 +79,25 @@ const workout = () => {
           />
         ))}
       </View>
+      <View style={{marginTop: 50}}>
+      <AppCustomButton
+      title="Continue to Exercise"
+      onPress={()=> handleSubmit()}
+      icon={ArrowRight}
+      colour={"default"}
+      
+      /> 
+      </View>
+
+      <View style={{marginTop: 25}}>
+      <AppCustomButton
+      title="Continue to Exercise"
+      onPress={()=> handleSubmit()}
+      icon={SlidersHorizontal}
+      /> 
+      </View>
+
+      
     </ScrollView>
   );
 };
@@ -84,6 +107,7 @@ export default workout;
 const styles = StyleSheet.create({
   margin: {
     margin: 25,
+    marginTop: 50
   },
 
   defaultText: {
@@ -108,7 +132,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: "bold",
   },
-  
+
   dayPlanContainer: {
     backgroundColor: "#E6FFFA",
     paddingHorizontal: 12,
@@ -132,13 +156,13 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
 
     // iOS shadow
-  shadowColor: "#000",
-  shadowOffset: { width: 0, height: 4 },
-  shadowOpacity: 0.1,
-  shadowRadius: 6,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
 
-  // Android shadow
-  elevation: 3,
+    // Android shadow
+    elevation: 3,
   },
 
   workoutSplitTitle: {
@@ -154,6 +178,6 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     marginLeft: 25,
     marginRight: 25,
-    marginBottom: 15
+    marginBottom: 15,
   },
 });

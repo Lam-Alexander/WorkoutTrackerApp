@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Text, View, Image, Pressable, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { HeaderLogo } from "../../components/shared/HeaderLogo";
-import { CustomInput } from "../../components/shared/CustomInput";
-import { CustomButton } from "../../components/shared/CustomButton";
+import { AuthCustomInput } from "../../components/auth/AuthCustomInput";
+import { AuthCustomButton } from "../../components/auth/AuthCustomButton";
 import { Redirect, useRouter } from "expo-router";
 import { supabase } from "../../lib/supabase";
 import { useSession } from "../../context/SessionContext";
@@ -67,7 +67,7 @@ const Login = () => {
           justifyContent: "space-evenly",
         }}
       >
-        <CustomInput
+        <AuthCustomInput
           label="Email"
           leftIcon={{
             type: "font-awesome",
@@ -78,7 +78,7 @@ const Login = () => {
           placeholder=" Email@address.com"
         />
 
-        <CustomInput
+        <AuthCustomInput
           label="Password"
           leftIcon={{
             type: "font-awesome",
@@ -91,7 +91,7 @@ const Login = () => {
           secureTextEntry={true}
         />
 
-        <CustomButton
+        <AuthCustomButton
           title="Login"
           onPress={() => signInWithEmail()}
           type="solid"
@@ -99,7 +99,7 @@ const Login = () => {
           loading={loading}
         />
 
-        <CustomButton
+        <AuthCustomButton
           title="Forgot Password?"
           type="clear"
           onPress={() => router.push("./auth/forgot-password")}
