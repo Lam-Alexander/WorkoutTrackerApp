@@ -1,7 +1,7 @@
 import { Slot, Stack } from "expo-router";
 import { SessionProvider } from "../context/SessionContext";
 
-export default function Layout() {
+export default function Root_Layout() {
   return (
     <SessionProvider>
       <Stack>
@@ -10,15 +10,13 @@ export default function Layout() {
           options={{ headerShown: false, title: "" }}
         />
         <Stack.Screen
-          name="auth"
+          name="public"
           options={{
             title: "",
-            // This is responabile for the black and white header in get 
-            // headerStyle: { backgroundColor: "white" },
             headerTintColor: "#2AD4B2",
           }}
         />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="private" options={{ headerShown: false }} />
       </Stack>
     </SessionProvider>
   );

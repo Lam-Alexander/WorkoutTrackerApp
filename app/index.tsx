@@ -16,7 +16,7 @@ const App = () => {
     Math.round(PixelRatio.roundToNearestPixel(size * scale));
 
   if (session && session.user) {
-    return <Redirect href="/workout" />;
+    return <Redirect href="private/(tabs)/workout" />;
   }
 
   return (
@@ -69,14 +69,14 @@ const App = () => {
           <AuthCustomButton
             title="Get Started"
             type="solid"
-            onPress={() => router.navigate("/auth/signup")}
+            onPress={() => router.navigate("/public/signup")}
             containerStyle={{ width: "80%", marginBottom: 20 }}
           />
 
           <AuthCustomButton
             title="Continue as guest"
             type="clear"
-            onPress={() => router.push("/(tabs)/home")}
+            onPress={() => router.push("/private/(tabs)/home")}
             containerStyle={{ marginBottom: 20 }}
           />
           <View
@@ -96,7 +96,7 @@ const App = () => {
                     fontWeight: "bold",
                     fontSize: normalize(15),
                   }}
-                  onPress={() => router.push("./auth/login")}
+                  onPress={() => router.push("./public/login")}
                 >
                   Sign In
                 </Text>

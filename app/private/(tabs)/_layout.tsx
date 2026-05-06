@@ -42,6 +42,8 @@ export default function TabLayout() {
         name="progress"
         options={{
           title: "Progress",
+          headerTitle: "",
+          headerTransparent: true,
           tabBarIcon: ({ color }) => <ChartColumn size={28} color={color} />,
         }}
       />
@@ -49,6 +51,8 @@ export default function TabLayout() {
         name="settings"
         options={{
           title: "Settings",
+          headerTitle: "",
+          headerTransparent: true,
           tabBarIcon: ({ color }) => <Settings size={28} color={color} />,
         }}
       />
