@@ -28,7 +28,7 @@ const Login = () => {
   };
 
   if (session && session.user) {
-    return <Redirect href="home" />;
+    return <Redirect href="private/(tabs)/home" />;
   }
 
   return (

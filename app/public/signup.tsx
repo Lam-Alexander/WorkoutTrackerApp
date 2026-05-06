@@ -48,7 +48,6 @@ const Signup = () => {
           },
         },
       });
-      // console.log(JSON.stringify(result, null, 2));
 
       if (error !== null) {
         Alert.alert(error.message);

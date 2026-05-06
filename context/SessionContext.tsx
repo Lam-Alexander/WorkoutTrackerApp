@@ -12,12 +12,15 @@ const SessionContext = createContext<SessionContextType | undefined>(undefined);
 const SessionProvider = ({ children }: { children: React.ReactNode }) => {
   const [session, setSession] = useState<Session | null>(null);
 
+  //1. Check if there's already a session
   useEffect(() => {
-    //1. Check if there's already a session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    const loadSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
       setSession(session);
-    });
-
+    };
+  
+    loadSession();
+  
     //2. Subscribe to futre auth evens (login, logout, refresh)
     const { data: subscription } = supabase.auth.onAuthStateChange(
       (_event, session) => {
