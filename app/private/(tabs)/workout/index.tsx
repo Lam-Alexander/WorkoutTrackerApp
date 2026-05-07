@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ScrollView, SafeAreaView,  } from "react-native";
+import { StyleSheet, Text, View, ScrollView, SafeAreaView } from "react-native";
 import React, { useState } from "react";
 import SelectableBox from "../../../../components/shared/SelectableBox";
 import {
@@ -7,7 +7,7 @@ import {
   MoveDiagonal2,
   SlidersHorizontal,
   ArrowRight,
-  Dumbbell
+  Dumbbell,
 } from "lucide-react-native";
 import { AppCustomButton } from "../../../../components/shared/AppCustomButton";
 import { useRouter } from "expo-router";
@@ -43,7 +43,7 @@ const Data = [
 const workout = () => {
   const [selected, setSelected] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
 
   const today = new Date().toLocaleDateString("en-US", {
     weekday: "long",
@@ -112,7 +112,9 @@ const workout = () => {
         <View style={{ marginTop: 25, marginBottom: 25 }}>
           <AppCustomButton
             title="Build custom workout"
-            onPress={() => router.push("/private/(tabs)/workout/createTemplate")}
+            onPress={() =>
+              router.push("/private/(tabs)/workout/createTemplate")
+            }
             icon={SlidersHorizontal}
           />
         </View>
