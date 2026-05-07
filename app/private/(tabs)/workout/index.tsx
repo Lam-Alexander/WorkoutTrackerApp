@@ -7,6 +7,7 @@ import {
   MoveDiagonal2,
   SlidersHorizontal,
   ArrowRight,
+  Dumbbell
 } from "lucide-react-native";
 import { AppCustomButton } from "../../../../components/shared/AppCustomButton";
 import { useRouter } from "expo-router";
@@ -30,6 +31,12 @@ const Data = [
     description: "Bench, shoulder press, incline work, triceps",
     icon: MoveDiagonal2,
     label: "move-diagonal-l2",
+  },
+  {
+    title: "Back and Biceps",
+    description: "Dumbbell Curls, Deadlift, Hammer Curls, Lat pulls",
+    icon: Dumbbell,
+    label: "Dumbbell",
   },
 ];
 
@@ -93,7 +100,7 @@ const workout = () => {
             />
           ))}
         </View>
-        <View style={{ marginTop: 50 }}>
+        <View style={{ marginTop: 25 }}>
           <AppCustomButton
             title="Continue to Exercise"
             onPress={() => router.push("/private/(tabs)/workout/trackWorkout")}
@@ -102,7 +109,7 @@ const workout = () => {
           />
         </View>
 
-        <View style={{ marginTop: 25 }}>
+        <View style={{ marginTop: 25, marginBottom: 25 }}>
           <AppCustomButton
             title="Build custom workout"
             onPress={() => router.push("/private/(tabs)/workout/createTemplate")}

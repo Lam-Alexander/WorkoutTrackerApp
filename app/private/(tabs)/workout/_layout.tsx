@@ -4,6 +4,7 @@ export default function WorkoutLayout() {
   return (
     <Stack>
        <Stack.Screen name="index" options={{ title: "", headerShown: false}} />
+       <Stack.Screen name="createTemplate" options={{title:""}}/>
     </Stack>
   );
 }
