@@ -1,3 +1,7 @@
+-- =====================================================
+-- Intial Database Schema
+-- Workout Tracking Application
+-- =====================================================
 CREATE TABLE profile (
     id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
     profile_name TEXT NOT NULL
@@ -41,3 +45,22 @@ CREATE TABLE sets (
     weights NUMERIC NOT NULL,
     set_order_idx INT NOT NULL
 );
+
+
+-- =====================================================
+-- Schema Update
+-- Added validation to prevent empty exercise names
+-- Empty strings ('') and whitespace-only strings ('   ')
+-- are now rejected at the database level
+-- =====================================================
+ALTER TABLE workout_template 
+ADD CONSTRAINT exercise_template_name_not_empty
+CHECK (length(trim(exercise_template_name)) > 0)
+
+
+-- =====================================================
+-- Schema Update
+-- Added icon column for workout template
+-- =====================================================
+ALTER TABLE workout_template
+ADD COLUMN workout_template_icon TEXT;
