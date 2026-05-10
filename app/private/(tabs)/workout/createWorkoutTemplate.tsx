@@ -1,9 +1,8 @@
-import { View, Text, TextInput, Button, Alert,ScrollView } from "react-native";
+import { View, Text, TextInput, Button, Alert, ScrollView } from "react-native";
 import React, { useState } from "react";
 import { useSession } from "../../../../context/SessionContext";
 import { supabase } from "../../../../lib/supabase";
 import { SafeAreaView } from "react-native-safe-area-context";
-
 
 const createWorkoutTemplate = () => {
   const { session } = useSession();
@@ -44,7 +43,7 @@ const createWorkoutTemplate = () => {
       Alert.alert("Add at least one exercise");
       return;
     }
-    
+
     const { error, data, status } = await supabase
       .from("workout_template")
       .insert([
@@ -57,7 +56,10 @@ const createWorkoutTemplate = () => {
       .single();
 
     if (error) {
-      Alert.alert("Saved Failed","There was a problem saving your workout. Please try again");
+      Alert.alert(
+        "Saved Failed",
+        "There was a problem saving your workout. Please try again",
+      );
       return;
     }
 
@@ -86,54 +88,54 @@ const createWorkoutTemplate = () => {
 
   return (
     <SafeAreaView>
-    <ScrollView>
-      <View>
-        <Text>createTemplate</Text>
-        <TextInput
-          style={{
-            borderColor: "grey",
-            borderWidth: 1,
-            height: 40,
-            paddingHorizontal: 10,
-            marginTop: 10,
-          }}
-          placeholder="Template Name"
-          value={templateName}
-          onChangeText={(text) => setTemplateName(text)}
-        />
-        <Button title="Add Template" onPress={handleCreateWorkoutTemplate} />
-      </View>
-
-      {exerciseName.map((exercises, index) => (
-        <View
-          key={index}
-          style={{
-            flexDirection: "row",
-            marginBottom: 10,
-            alignItems: "center",
-          }}
-        >
-          <Text>Hello</Text>
-          <Text>{index + 1}</Text>
+      <ScrollView>
+        <View>
+          <Text>createTemplate</Text>
           <TextInput
-            value={exercises}
-            onChangeText={(text) => handleExerciseChange(text, index)}
-            placeholder={`Exercise ${index + 1}`}
             style={{
-              flex: 1,
-              borderColor: "gray",
-              height: 50,
+              borderColor: "grey",
               borderWidth: 1,
-              padding: 8,
+              height: 40,
+              paddingHorizontal: 10,
+              marginTop: 10,
             }}
+            placeholder="Template Name"
+            value={templateName}
+            onChangeText={(text) => setTemplateName(text)}
           />
-          <Button onPress={() => handleRemoveExercise(index)} title="x" />
+          <Button title="Add Template" onPress={handleCreateWorkoutTemplate} />
         </View>
-      ))}
-      <View>
-        <Button title="Add Exercise" onPress={addExerciseField} />
-      </View>
-    </ScrollView>
+
+        {exerciseName.map((exercises, index) => (
+          <View
+            key={index}
+            style={{
+              flexDirection: "row",
+              marginBottom: 10,
+              alignItems: "center",
+            }}
+          >
+            <Text>Hello</Text>
+            <Text>{index + 1}</Text>
+            <TextInput
+              value={exercises}
+              onChangeText={(text) => handleExerciseChange(text, index)}
+              placeholder={`Exercise ${index + 1}`}
+              style={{
+                flex: 1,
+                borderColor: "gray",
+                height: 50,
+                borderWidth: 1,
+                padding: 8,
+              }}
+            />
+            <Button onPress={() => handleRemoveExercise(index)} title="x" />
+          </View>
+        ))}
+        <View>
+          <Button title="Add Exercise" onPress={addExerciseField} />
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
