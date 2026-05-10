@@ -7,20 +7,21 @@ import { useRouter } from "expo-router";
 import { supabase } from "../../../../lib/supabase";
 import { useSession } from "../../../../context/SessionContext";
 import { useFocusEffect } from "expo-router";
-import { BicepsFlexed, LucideIcon } from "lucide-react-native";
 import {
   PersonStanding,
   Shield,
   MoveDiagonal2,
   SlidersHorizontal,
   ArrowRight,
+  BicepsFlexed,
+  Info,
 } from "lucide-react-native";
 
 const iconMap = {
   Shield: Shield,
   PersonStanding: PersonStanding,
   MoveDiagonal2: MoveDiagonal2,
-  BicepsFlexed: BicepsFlexed
+  BicepsFlexed: BicepsFlexed,
 };
 
 const workout = () => {
@@ -64,7 +65,6 @@ const workout = () => {
           })),
         }));
 
-        // console.log(formattedTemplateData);
         setWorkoutTemplate(formattedTemplateData);
       };
 
@@ -115,24 +115,36 @@ const workout = () => {
             Start with a common split or choose a combined day when you want
             more variety.
           </Text>
-          {workoutTemplate.map((item, index) => (
-            <SelectableBox
-              key={item.templateId}
-              icon={item.templateIcon}
-              label={item.templateName}
-              title={item.templateName}
-              description={item.exercises
-                .slice(0.5)
-                .map((exercise) => exercise.exerciseName)
-                .join(", ")}
-              selected={selected === index}
-              onPress={() => setSelected(selected === index ? null : index)}
-            />
-          ))}
+          {workoutTemplate.length === 0 ? (
+            <View style={styles.cards}>
+              <Info size={25} color="#2AD4B2" />
+
+              <Text style={{ padding: 10, fontSize: 15, fontWeight: 500 }}>
+                You don’t have any workout templates yet. Create one to get
+                started.
+              </Text>
+            </View>
+          ) : (
+            workoutTemplate.map((item, index) => (
+              <SelectableBox
+                key={item.templateId}
+                icon={item.templateIcon}
+                label={item.templateName}
+                title={item.templateName}
+                description={item.exercises
+                  .slice(0.5)
+                  .map((exercise) => exercise.exerciseName)
+                  .join(", ")}
+                selected={selected === index}
+                onPress={() => setSelected(selected === index ? null : index)}
+              />
+            ))
+          )}
         </View>
         <View style={{ marginTop: 25 }}>
           <AppCustomButton
             title="Continue to Exercise"
+            disabled={workoutTemplate.length === 0}
             onPress={() => router.push("/private/(tabs)/workout/trackWorkout")}
             icon={ArrowRight}
             colour={"default"}
@@ -159,6 +171,32 @@ const styles = StyleSheet.create({
   margin: {
     margin: 25,
     marginTop: 25,
+  },
+
+  cards: {
+    backgroundColor: "#EAFBF7",
+    marginLeft: 15,
+    marginRight: 15,
+    marginBottom: 12,
+    padding: 16,
+    borderRadius: 12,
+    flexDirection: "row",
+  },
+
+  cardContainer: {
+    backgroundColor: "#EAFBF7",
+    marginLeft: 15,
+    marginRight: 15,
+    marginBottom: 12,
+    padding: 16,
+    borderRadius: 12,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  cardText: {
+    textAlign: "center",
+    flexShrink: 1, // important for wrapping in flex layouts
   },
 
   defaultText: {
