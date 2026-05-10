@@ -7,7 +7,7 @@ interface SelectableBoxProps {
   description: string;
   selected: boolean;
   icon: LucideIcon;
-  label: string;
+  label?: string;
   onPress: () => void;
 }
 
@@ -32,8 +32,8 @@ const SelectableBox = ({
           <Icon size={28} color={selected ? "white" : "black"} />
         </View>
         <View style={styles.textContainer}>
-          <Text>{title}</Text>
-          <Text>{description}</Text>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.description}>{description}</Text>
         </View>
 
         <View
@@ -59,6 +59,16 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     flexDirection: "row",
     alignItems: "center",
+  },
+  title: {
+    fontWeight: "bold",
+    fontSize: 17
+  },
+
+  description: {
+    color: "#7E8B9D",
+    fontWeight: 600,
+    fontSize: 15
   },
 
   cardsSelected: {

@@ -103,7 +103,6 @@ const Login = () => {
           title="Forgot Password?"
           type="clear"
           onPress={() => router.push("./auth/forgot-password")}
-          containerStyle={{ width: "45%" }}
         />
       </View>
       <View
@@ -122,6 +121,7 @@ const Login = () => {
                 color: pressed ? "#00dfc0" : "#3DD8C3",
                 fontWeight: "bold",
                 fontSize: 15,
+                marginBottom:70
               }}
               onPress={() => router.push("./signup")}
             >

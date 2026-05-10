@@ -11,8 +11,8 @@ export default function TabLayout() {
         tabBarStyle: {
           paddingTop: Platform.select({
             ios: 10,
-            android: 5,
-            default: 10,
+            android: 0,
+
           }),
         },
         tabBarLabelStyle: {

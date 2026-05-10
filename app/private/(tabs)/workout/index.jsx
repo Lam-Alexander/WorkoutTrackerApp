@@ -1,49 +1,76 @@
-import { StyleSheet, Text, View, ScrollView, SafeAreaView } from "react-native";
-import React, { useState } from "react";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import React, { useCallback, useState } from "react";
 import SelectableBox from "../../../../components/shared/SelectableBox";
+import { AppCustomButton } from "../../../../components/shared/AppCustomButton";
+import { useRouter } from "expo-router";
+import { supabase } from "../../../../lib/supabase";
+import { useSession } from "../../../../context/SessionContext";
+import { useFocusEffect } from "expo-router";
+import { BicepsFlexed, LucideIcon } from "lucide-react-native";
 import {
   PersonStanding,
   Shield,
   MoveDiagonal2,
   SlidersHorizontal,
   ArrowRight,
-  Dumbbell,
 } from "lucide-react-native";
-import { AppCustomButton } from "../../../../components/shared/AppCustomButton";
-import { useRouter } from "expo-router";
 
-const Data = [
-  {
-    title: "Push",
-    description: "Squats, Romanian deadlifts, leg press, lunges",
-    icon: PersonStanding,
-    label: "person-standing",
-  },
-
-  {
-    title: "Pull",
-    description: "Rows, pull-ups, pulldowns, rear delts, biceps",
-    icon: Shield,
-    label: "shield",
-  },
-  {
-    title: "Legs",
-    description: "Bench, shoulder press, incline work, triceps",
-    icon: MoveDiagonal2,
-    label: "move-diagonal-l2",
-  },
-  {
-    title: "Back and Biceps",
-    description: "Dumbbell Curls, Deadlift, Hammer Curls, Lat pulls",
-    icon: Dumbbell,
-    label: "Dumbbell",
-  },
-];
+const iconMap = {
+  Shield: Shield,
+  PersonStanding: PersonStanding,
+  MoveDiagonal2: MoveDiagonal2,
+  BicepsFlexed: BicepsFlexed
+};
 
 const workout = () => {
-  const [selected, setSelected] = useState<number | null>(null);
+  const [selected, setSelected] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [workoutTemplate, setWorkoutTemplate] = useState([]);
+  // const [exercises, setExercises] = useState();
   const router = useRouter();
+  const session = useSession();
+
+  useFocusEffect(
+    useCallback(() => {
+      const fetchTemplateData = async () => {
+        const { data, error } = await supabase
+          .from("workout_template")
+          .select(
+            `id,
+            workout_template_name,
+            workout_template_icon,
+            exercise_template (
+              id,
+              exercise_template_name,
+              exercise_template_order_idx
+            )`,
+          )
+          .eq("profile_id", session.session?.user.id);
+
+        if (error) {
+          console.log("Error", error.message);
+          return;
+        }
+
+        const formattedTemplateData = data.map((template) => ({
+          templateId: template.id,
+          templateName: template.workout_template_name,
+          templateIcon: iconMap[template.workout_template_icon] ?? BicepsFlexed,
+
+          exercises: template.exercise_template.map((exercise) => ({
+            exerciseId: exercise.id,
+            exerciseName: exercise.exercise_template_name,
+          })),
+        }));
+
+        // console.log(formattedTemplateData);
+        setWorkoutTemplate(formattedTemplateData);
+      };
+
+      fetchTemplateData();
+    }, [session.session?.user.id]),
+  );
 
   const today = new Date().toLocaleDateString("en-US", {
     weekday: "long",
@@ -88,13 +115,16 @@ const workout = () => {
             Start with a common split or choose a combined day when you want
             more variety.
           </Text>
-          {Data.map((item, index) => (
+          {workoutTemplate.map((item, index) => (
             <SelectableBox
-              key={item.title}
-              icon={item.icon}
-              label={item.label}
-              title={item.title}
-              description={item.description}
+              key={item.templateId}
+              icon={item.templateIcon}
+              label={item.templateName}
+              title={item.templateName}
+              description={item.exercises
+                .slice(0.5)
+                .map((exercise) => exercise.exerciseName)
+                .join(", ")}
               selected={selected === index}
               onPress={() => setSelected(selected === index ? null : index)}
             />
@@ -113,7 +143,7 @@ const workout = () => {
           <AppCustomButton
             title="Build custom workout"
             onPress={() =>
-              router.push("/private/(tabs)/workout/createTemplate")
+              router.push("/private/(tabs)/workout/createWorkoutTemplate")
             }
             icon={SlidersHorizontal}
           />

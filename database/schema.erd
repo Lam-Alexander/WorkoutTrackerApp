@@ -4,8 +4,8 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -195,
-    "scrollLeft": -740,
+    "scrollTop": 0,
+    "scrollLeft": -385,
     "zoomLevel": 1,
     "show": 430,
     "database": 16,
@@ -201,6 +201,7 @@
           "xtD5QLcHqbfOzkL-D5BNk",
           "J6Kw7CpU5Xi2rOtN_8bQQ",
           "wPLSA4zt_LqkcUcbYf4Nr",
+          "jls9AjC7qTf1315BiwTPJ",
           "neb24IOiGlBiBZPOmLIC-"
         ],
         "seqColumnIds": [
@@ -208,6 +209,7 @@
           "J6Kw7CpU5Xi2rOtN_8bQQ",
           "Chu7YZWiCGaYRZfspfEaq",
           "wPLSA4zt_LqkcUcbYf4Nr",
+          "jls9AjC7qTf1315BiwTPJ",
           "neb24IOiGlBiBZPOmLIC-"
         ],
         "ui": {
@@ -219,7 +221,7 @@
           "color": ""
         },
         "meta": {
-          "updateAt": 1775425139235,
+          "updateAt": 1778384067479,
           "createAt": 1775418774597
         }
       },
@@ -1278,6 +1280,26 @@
           "updateAt": 1775425991826,
           "createAt": 1775422973112
         }
+      },
+      "jls9AjC7qTf1315BiwTPJ": {
+        "id": "jls9AjC7qTf1315BiwTPJ",
+        "tableId": "ObdIH6pIcK9maoaUnT3rj",
+        "name": "workout_template_icon",
+        "comment": "",
+        "dataType": "varchar",
+        "default": "",
+        "options": 0,
+        "ui": {
+          "keys": 0,
+          "widthName": 135,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1778384077709,
+          "createAt": 1778384065532
+        }
       }
     },
     "relationshipEntities": {
@@ -1376,7 +1398,7 @@
             "xtD5QLcHqbfOzkL-D5BNk"
           ],
           "x": 1233.2705999999998,
-          "y": 387,
+          "y": 411,
           "direction": 8
         },
         "end": {
@@ -1413,7 +1435,7 @@
             "J6Kw7CpU5Xi2rOtN_8bQQ"
           ],
           "x": 979.2706,
-          "y": 273,
+          "y": 279,
           "direction": 1
         },
         "meta": {
@@ -1432,7 +1454,7 @@
             "xtD5QLcHqbfOzkL-D5BNk"
           ],
           "x": 979.2706,
-          "y": 349,
+          "y": 367,
           "direction": 1
         },
         "end": {
