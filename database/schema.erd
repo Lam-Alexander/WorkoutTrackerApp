@@ -4,8 +4,8 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": 0,
-    "scrollLeft": -385,
+    "scrollTop": -63,
+    "scrollLeft": -101,
     "zoomLevel": 1,
     "show": 430,
     "database": 16,
@@ -129,7 +129,6 @@
           "36LcsB9hgXtg56o7DpJSZ",
           "MoIKcPuBSidDUIOuXZbJx",
           "Cf2LghEpLnPHG6M8p5mrA",
-          "NvHp4hqo4u3UnZyEXyXC1",
           "VuoptjrG_v0R6WiFy-6DB"
         ],
         "seqColumnIds": [
@@ -154,7 +153,7 @@
           "color": ""
         },
         "meta": {
-          "updateAt": 1775423542862,
+          "updateAt": 1778636104120,
           "createAt": 1775244808751
         }
       },
@@ -1370,7 +1369,7 @@
             "36LcsB9hgXtg56o7DpJSZ"
           ],
           "x": 303.2918,
-          "y": 899.7702,
+          "y": 875.7702,
           "direction": 8
         },
         "end": {
@@ -1491,7 +1490,7 @@
             "Cf2LghEpLnPHG6M8p5mrA"
           ],
           "x": 585.2918,
-          "y": 811.7702,
+          "y": 799.7702,
           "direction": 2
         },
         "meta": {
