@@ -30,7 +30,7 @@ const createWorkoutTemplate = () => {
       return;
     }
 
-    const cleanedExerciseName = exerciseName
+    const trimmedNonEmptyExerciseNames = exerciseName
       .map((exercise) => exercise.trim())
       .filter((exercise) => exercise !== "");
 
@@ -39,7 +39,7 @@ const createWorkoutTemplate = () => {
       return;
     }
 
-    if (cleanedExerciseName.length === 0) {
+    if (trimmedNonEmptyExerciseNames.length === 0) {
       Alert.alert("Add at least one exercise");
       return;
     }
@@ -69,7 +69,7 @@ const createWorkoutTemplate = () => {
     console.log(data);
     setTemplateName("");
 
-    const formattedExerciseName = exerciseName.map((exercises, index) => ({
+    const formattedExerciseTemplateData = exerciseName.map((exercises, index) => ({
       workout_template_id: data.id,
       exercise_template_name: exercises,
       exercise_template_order_idx: index + 1,
@@ -77,7 +77,7 @@ const createWorkoutTemplate = () => {
 
     const { error: exerciseError } = await supabase
       .from("exercise_template")
-      .insert(formattedExerciseName);
+      .insert(formattedExerciseTemplateData);
 
     if (exerciseError) {
       console.log("Error", exerciseError.message);

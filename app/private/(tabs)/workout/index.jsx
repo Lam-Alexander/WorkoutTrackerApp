@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, Text, View, ScrollView, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useCallback, useState } from "react";
 import SelectableBox from "../../../../components/shared/SelectableBox";
@@ -25,10 +25,9 @@ const iconMap = {
 };
 
 const workout = () => {
-  const [selected, setSelected] = useState(null);
   const [loading, setLoading] = useState(false);
   const [workoutTemplate, setWorkoutTemplate] = useState([]);
-  // const [exercises, setExercises] = useState();
+  const [selectedTemplate, setSelectedTemplate] = useState(null);
   const router = useRouter();
   const session = useSession();
 
@@ -41,7 +40,7 @@ const workout = () => {
             `id,
             workout_template_name,
             workout_template_icon,
-            exercise_template (
+            exercise_template ( 
               id,
               exercise_template_name,
               exercise_template_order_idx
@@ -62,6 +61,7 @@ const workout = () => {
           exercises: template.exercise_template.map((exercise) => ({
             exerciseId: exercise.id,
             exerciseName: exercise.exercise_template_name,
+            exerciseIdx: exercise.exercise_template_order_idx,
           })),
         }));
 
@@ -72,13 +72,73 @@ const workout = () => {
     }, [session.session?.user.id]),
   );
 
+  const startWorkout = async () => {
+    if (!selectedTemplate) {
+      Alert.alert("Please select a template");
+      return;
+    }
+
+    // setLoading(true);
+
+    const userId = session.session.user.id;
+    const templateId = selectedTemplate.templateId;
+
+    const { data: workoutLogData, error: workoutLogError } = await supabase
+      .from("workout_log")
+      .insert([
+        {
+          profile_id: session.session.user.id,
+          workout_template_id: templateId,
+          workout_date: new Date().toDateString(),
+        },
+      ])
+      .select()
+      .single();
+
+    if (workoutLogError) {
+      Alert.alert(
+        "Error",
+        "There was an issue starting the workout, Please try again",
+      );
+      console.log(workoutLogError.message);
+      return;
+    }
+
+    const workoutLogId = workoutLogData.id;
+
+    const organizedData = selectedTemplate.exercises.map((ex) => ({
+      workout_log_id: workoutLogId,
+      exercise_template_id: ex.exerciseId,
+      exercise_log_order_idx: ex.exerciseIdx,
+    }));
+
+    const { data: exerciseLogData, error: exerciseLogError } = await supabase
+      .from("exercise_log")
+      .insert(organizedData)
+      .select();
+
+    if (exerciseLogError) {
+      Alert.alert(
+        "Error",
+        "There was an issue starting workout, Please try again",
+      );
+      console.log(exerciseLogError.message);
+      return;
+    }
+
+    router.push({
+      pathname: "private/(tabs)/workout/trackWorkout",
+      params: {
+        workoutLogId: workoutLogId,
+      },
+    });
+  };
+
   const today = new Date().toLocaleDateString("en-US", {
     weekday: "long",
     month: "short",
     day: "numeric",
   });
-
-  const handleSubmit = () => {};
 
   return (
     <SafeAreaView style={styles.container}>
@@ -119,7 +179,7 @@ const workout = () => {
             <View style={styles.cards}>
               <Info size={25} color="#2AD4B2" />
 
-              <Text style={{ padding: 10, fontSize: 15, fontWeight: 500 }}>
+              <Text style={{ padding: 15, fontSize: 15, fontWeight: 500 }}>
                 You don’t have any workout templates yet. Create one to get
                 started.
               </Text>
@@ -132,11 +192,17 @@ const workout = () => {
                 label={item.templateName}
                 title={item.templateName}
                 description={item.exercises
-                  .slice(0.5)
+                  .slice(0, 5)
                   .map((exercise) => exercise.exerciseName)
                   .join(", ")}
-                selected={selected === index}
-                onPress={() => setSelected(selected === index ? null : index)}
+                selected={selectedTemplate?.templateId === item.templateId}
+                onPress={() =>
+                  setSelectedTemplate(
+                    selectedTemplate?.templateId === item.templateId
+                      ? null
+                      : item,
+                  )
+                }
               />
             ))
           )}
@@ -144,8 +210,9 @@ const workout = () => {
         <View style={{ marginTop: 25 }}>
           <AppCustomButton
             title="Continue to Exercise"
+            r
             disabled={workoutTemplate.length === 0}
-            onPress={() => router.push("/private/(tabs)/workout/trackWorkout")}
+            onPress={startWorkout}
             icon={ArrowRight}
             colour={"default"}
           />
