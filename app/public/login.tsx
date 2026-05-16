@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, Image, Pressable, Alert } from "react-native";
+import { Text, View, Image, Pressable, Alert, ScrollView, KeyboardAvoidingView, Platform} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { HeaderLogo } from "../../components/shared/HeaderLogo";
 import { AuthCustomInput } from "../../components/auth/AuthCustomInput";
@@ -7,6 +7,7 @@ import { AuthCustomButton } from "../../components/auth/AuthCustomButton";
 import { Redirect, useRouter } from "expo-router";
 import { supabase } from "../../lib/supabase";
 import { useSession } from "../../context/SessionContext";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -32,6 +33,14 @@ const Login = () => {
   }
 
   return (
+    <KeyboardAvoidingView
+    style={{ flex: 1 }}
+    behavior={Platform.OS === "ios" ? "padding" : "height"}
+  >
+    <ScrollView
+      contentContainerStyle={{ flexGrow: 1 }}
+      keyboardShouldPersistTaps="handled"
+    >
     <SafeAreaView
       style={{
         flex: 1,
@@ -95,7 +104,7 @@ const Login = () => {
           title="Login"
           onPress={() => signInWithEmail()}
           type="solid"
-          containerStyle={{ width: "70%", marginTop: 0 }}
+          containerStyle={{ width: "70%" }}
           loading={loading}
         />
 
@@ -103,6 +112,7 @@ const Login = () => {
           title="Forgot Password?"
           type="clear"
           onPress={() => router.push("./auth/forgot-password")}
+          containerStyle={{marginTop: 20}}
         />
       </View>
       <View
@@ -121,7 +131,8 @@ const Login = () => {
                 color: pressed ? "#00dfc0" : "#3DD8C3",
                 fontWeight: "bold",
                 fontSize: 15,
-                marginBottom:70
+                marginBottom:40
+                
               }}
               onPress={() => router.push("./signup")}
             >
@@ -131,6 +142,8 @@ const Login = () => {
         </Pressable>
       </View>
     </SafeAreaView>
+    </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
