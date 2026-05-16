@@ -39,7 +39,7 @@ const App = () => {
             Fit<Text style={{ color: "#00dfc0" }}>Tracker.</Text>
           </Text>
           <Image
-            style={{ width: 334, height: 334, marginTop: 25 }}
+            style={{ width: 335, height: 315, marginTop: 25 }}
             source={require("../images/female-workout.png")}
           />
           <Text
