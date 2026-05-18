@@ -1,10 +1,11 @@
-import { StyleSheet, View, Text, ScrollView } from "react-native";
+import { StyleSheet, View, Text, ScrollView, TextInput } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
 import { supabase } from "../../../../lib/supabase";
 
 const trackWorkout = () => {
-  const [exerciseName, setExerciseName] = useState([]);
+  const [exercise, setExercise] = useState([]);
+  const [exerciseSet, setExerciseSet] = useState([""]);
   const { workoutLogId } = useLocalSearchParams();
 
   // console.log("trackWorkout:", workoutLogId);
@@ -26,14 +27,21 @@ const trackWorkout = () => {
       const { data: exerciseLogData, error: exerciseLogError } = await supabase
         .from("exercise_log")
         .select(
-          `
-        id, 
-        workout_log_id,
-        exercise_log_order_idx,
-        exercise_template (
-        exercise_template_name
-        )
-        `,
+          `id,
+          workout_log_id,
+          exercise_log_order_idx,
+          exercise_template (
+            exercise_template_name 
+          ),
+
+          sets(
+            id,
+            set_number,
+            reps,
+            weights,
+            set_order_idx
+          )
+          `,
         )
         // .eq("workout_log_id", workoutLogId)
         .eq("workout_log_id", hardCodedId)
@@ -49,9 +57,10 @@ const trackWorkout = () => {
         exerciseId: ex.id,
         excerciseIdx: ex.exercise_log_order_idx,
         exerciseName: ex.exercise_template.exercise_template_name,
+        sets: [{ reps: "", weight: "" }],
       }));
       // console.log(formattedData);
-      setExerciseName(formattedData);
+      setExercise(formattedData);
     };
     fetchData();
 
@@ -78,22 +87,40 @@ const trackWorkout = () => {
   return (
     <ScrollView>
       <View>
-        {exerciseName.map((ex) => (
+        {exercise.map((ex) => (
           <View key={ex.exerciseId} style={styles.exerciseContainer}>
             <View>
               <Text>{ex.exerciseName}</Text>
             </View>
+
             <View>
               <Text>Track lifted weight</Text>
             </View>
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <Text>Set</Text>
-              <Text>Prev</Text>
-              <Text>Reps</Text>
-              <Text>Weight</Text>
+
+            <View style={styles.row}>
+              <Text style={styles.col}>Set</Text>
+              <Text style={styles.col}>Prev</Text>
+              <Text style={styles.col}>Reps</Text>
+              <Text style={styles.col}>Weight</Text>
             </View>
+
+            {ex.sets.map((set, setIdx) => (
+              <View key={setIdx} style={styles.row}>
+                <Text style={styles.col}>1</Text>
+                <Text style={styles.col}>89</Text>
+                <TextInput
+                  value={set.rep}
+                  placeholder="rep"
+                  style={[styles.col, styles.input]}
+                ></TextInput>
+
+                <TextInput
+                  value={set.weight}
+                  placeholder="weight"
+                  style={[styles.col, styles.input]}
+                ></TextInput>
+              </View>
+            ))}
           </View>
         ))}
       </View>
@@ -110,4 +137,22 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 16,
   },
+
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  col: {
+    flex: 1,
+    textAlign: "center",
+    paddingVertical: 6,
+  },
+
+  input: {
+    borderColor: "gray",
+    borderWidth: 0.2,
+    borderRadius: 8,
+    backgroundColor: "#F8F9FB",
+  }
 });
