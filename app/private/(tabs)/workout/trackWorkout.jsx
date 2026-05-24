@@ -1,13 +1,14 @@
-import { StyleSheet, View, Text, ScrollView } from "react-native";
+import { StyleSheet, View, Text, ScrollView, TextInput } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
 import { supabase } from "../../../../lib/supabase";
+import { AppCustomButton } from "../../../../components/shared/AppCustomButton";
+
+import { Plus, Trash2 } from "lucide-react-native";
 
 const trackWorkout = () => {
-  const [exerciseName, setExerciseName] = useState([]);
+  const [exercise, setExercise] = useState([]);
   const { workoutLogId } = useLocalSearchParams();
-
-  // console.log("trackWorkout:", workoutLogId);
 
   const hardCodedId = "0db442da-cdcc-4781-90a4-7822e3a01764";
 
@@ -26,14 +27,21 @@ const trackWorkout = () => {
       const { data: exerciseLogData, error: exerciseLogError } = await supabase
         .from("exercise_log")
         .select(
-          `
-        id, 
-        workout_log_id,
-        exercise_log_order_idx,
-        exercise_template (
-        exercise_template_name
-        )
-        `,
+          `id,
+          workout_log_id,
+          exercise_log_order_idx,
+          exercise_template (
+            exercise_template_name 
+          ),
+
+          sets(
+            id,
+            set_number,
+            reps,
+            weights,
+            set_order_idx
+          )
+          `,
         )
         // .eq("workout_log_id", workoutLogId)
         .eq("workout_log_id", hardCodedId)
@@ -42,43 +50,79 @@ const trackWorkout = () => {
       if (exerciseLogError) {
         console.log("Error", exerciseLogError.message);
       }
-      // console.log(JSON.stringify(exerciseLogData, null, 2));
-      // setExerciseName(exerciseLogData)
 
       const formattedData = exerciseLogData.map((ex) => ({
         exerciseId: ex.id,
-        excerciseIdx: ex.exercise_log_order_idx,
+        exerciseIdx: ex.exercise_log_order_idx,
         exerciseName: ex.exercise_template.exercise_template_name,
+
+        sets:
+          ex.sets.length > 0
+            ? ex.sets.map((set) => ({
+                id: set.id,
+                reps: String(set.reps ?? ""),
+                weights: String(set.weights ?? ""),
+                set_number: set.set_number,
+              }))
+            : [
+                {
+                  reps: "",
+                  weights: "",
+                  set_number: 1,
+                },
+              ],
       }));
-      // console.log(formattedData);
-      setExerciseName(formattedData);
+
+      setExercise(formattedData);
     };
     fetchData();
-
-    //   {
-    //     "id": "0569180c-0169-47ab-b890-c7efb08c7315",
-    //     "workout_log_id": "491c389b-43a5-495f-b6cc-f69bf0b99183",
-    //     "exercise_log_order_idx": 1,
-    //     "exercise_template": {
-    //       "exercise_template_name": "One"
-    //     }
-    //   },
-    //   {
-    //     "id": "de8e0eb5-d2c2-4316-ba82-4c65f5d03dbf",
-    //     "workout_log_id": "491c389b-43a5-495f-b6cc-f69bf0b99183",
-    //     "exercise_log_order_idx": 2,
-    //     "exercise_template": {
-    //       "exercise_template_name": "Two"
-    //     }
-    //   }
   }, []);
 
-  // console.log(JSON.stringify(exerciseName, null, 2));
+  const updateSetValue = (exerciseIdx, setIdx, field, value) => {
+    const updatedSetValue = [...exercise];
+    updatedSetValue[exerciseIdx].sets[setIdx][field] = value;
+    setExercise(updatedSetValue);
+  };
+
+  const addSet = (exerciseIdx) => {
+    const updatedExercise = [...exercise];
+    updatedExercise[exerciseIdx].sets.push({
+      reps: "",
+      weights: "",
+      set_number: updatedExercise[exerciseIdx].sets.length + 1,
+    });
+
+    setExercise(updatedExercise);
+    console.log(JSON.stringify(updatedExercise[0], null, 2));
+  };
+
+  const handleSaveSets = () => {
+    const setsToInsert = exercise.flatMap((ex) =>
+      ex.sets.map((set, idx) => ({
+        exerciseLogID: ex.exerciseId,
+        set_number: idx + 1,
+        reps: Number(set.reps),
+        weights: Number(set.weights),
+        set_order_idx: idx + 1,
+      })),
+    );
+
+    console.log(JSON.stringify(setsToInsert, null, 2));
+  };
+
+  const handleRemoveSets = (exIdx, setIdx) => {
+    const updatedExercise = [...exercise];
+    updatedExercise[exIdx].sets = updatedExercise[exIdx].sets.filter(
+      (_, i) => i !== setIdx,
+    );
+    setExercise(updatedExercise);
+    console.log(JSON.stringify(updatedExercise, null, 2))
+  };
 
   return (
     <ScrollView>
       <View>
-        {exerciseName.map((ex) => (
+        {exercise.map((ex, exerciseIdx) => (
           <View key={ex.exerciseId} style={styles.exerciseContainer}>
             <View>
               <Text>{ex.exerciseName}</Text>
@@ -86,16 +130,54 @@ const trackWorkout = () => {
             <View>
               <Text>Track lifted weight</Text>
             </View>
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <Text>Set</Text>
-              <Text>Prev</Text>
-              <Text>Reps</Text>
-              <Text>Weight</Text>
+
+            <View style={styles.row}>
+              <Text style={styles.col}>Set</Text>
+              <Text style={styles.col}>Reps</Text>
+              <Text style={styles.col}>Weight</Text>
+              <Text style={[styles.col, styles.white]}>Delete</Text>
             </View>
+
+            {ex.sets.map((set, setIdx) => (
+              <View key={setIdx} style={[styles.row, styles.test]}>
+                <Text style={styles.col}>{setIdx + 1}</Text>
+
+                <TextInput
+                  value={set.reps}
+                  placeholder="rep"
+                  style={[styles.col, styles.input]}
+                  onChangeText={(text) =>
+                    updateSetValue(exerciseIdx, setIdx, "reps", text)
+                  }
+                ></TextInput>
+
+                <TextInput
+                  value={set.weights}
+                  placeholder="weight"
+                  style={[styles.col, styles.input]}
+                  onChangeText={(text) =>
+                    updateSetValue(exerciseIdx, setIdx, "weights", text)
+                  }
+                ></TextInput>
+                <Trash2
+                  style={styles.col}
+                  onPress={() => handleRemoveSets(exerciseIdx, setIdx)}
+                />
+              </View>
+            ))}
+            <AppCustomButton
+              title="Add set"
+              icon={Plus}
+              onPress={(text) => addSet(exerciseIdx)}
+            />
           </View>
         ))}
+        <AppCustomButton
+          title="Save Workout"
+          icon={Plus}
+          onPress={() => handleSaveSets()}
+          colour={"default"}
+        />
       </View>
     </ScrollView>
   );
@@ -109,5 +191,34 @@ const styles = StyleSheet.create({
     backgroundColor: "#FCFCFC",
     padding: 15,
     borderRadius: 16,
+  },
+
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+
+  white: {
+    color: "white",
+  },
+
+  col: {
+    flex: 1,
+    textAlign: "center",
+    paddingVertical: 6,
+  },
+
+  input: {
+    borderColor: "gray",
+    borderWidth: 0.2,
+    borderRadius: 8,
+    // backgroundColor: "#F8F9FB",
+  },
+
+  test: {
+    backgroundColor: "#EFFFFC",
+    flex: 1,
+    padding: 15,
   },
 });

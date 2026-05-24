@@ -87,7 +87,7 @@ const workout = () => {
       .from("workout_log")
       .insert([
         {
-          profile_id: session.session.user.id,
+          profile_id: userId,
           workout_template_id: templateId,
           workout_date: new Date().toDateString(),
         },
