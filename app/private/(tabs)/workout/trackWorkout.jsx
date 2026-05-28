@@ -199,16 +199,7 @@ const trackWorkout = () => {
       <ScrollView style={styles.container}>
         <View style={styles.margin}>
           <View>
-            <Text
-              style={[
-                styles.defaultText,
-                {
-                  marginBottom: 15,
-                },
-              ]}
-            >
-              {today}
-            </Text>
+            <Text style={styles.dateContainer}>{today}</Text>
           </View>
           <View style={styles.headerRow}>
             <Text style={styles.title}>Today's Plan</Text>
@@ -317,6 +308,20 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: "bold",
+  },
+
+  dateContainer: {
+    marginBottom: 15,
+    backgroundColor: "#F1F5F9",
+    alignSelf: "flex-start",
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    color: "#6B7280",
+    fontSize: 16,
+    fontWeight: 500,
   },
 
   dayPlanContainer: {
