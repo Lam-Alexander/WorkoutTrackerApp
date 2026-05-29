@@ -62,13 +62,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: "bold",
-    fontSize: 17
+    fontSize: 16
   },
 
   description: {
     color: "#7E8B9D",
-    fontWeight: 600,
-    fontSize: 15
+    fontWeight: 500,
+    fontSize: 14
   },
 
   cardsSelected: {

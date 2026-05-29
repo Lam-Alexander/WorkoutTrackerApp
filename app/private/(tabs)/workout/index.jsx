@@ -154,7 +154,7 @@ const workout = () => {
             </View>
           </View>
           <View>
-            <Text style={[styles.defaultText, { marginTop: 15 }]}>
+            <Text style={styles.headerDescriptionText}>
               Pick the focus for today before adding your exercise and tracking
               reps
             </Text>
@@ -183,7 +183,7 @@ const workout = () => {
                 label={item.templateName}
                 title={item.templateName}
                 description={item.exercises
-                  .slice(0, 5)
+                  .slice(0, 3)
                   .map((exercise) => exercise.exerciseName)
                   .join(", ")}
                 selected={selectedTemplate?.templateId === item.templateId}
@@ -257,11 +257,12 @@ const styles = StyleSheet.create({
     flexShrink: 1, // important for wrapping in flex layouts
   },
 
-  defaultText: {
+  headerDescriptionText: {
     fontSize: 16,
     color: "#94A3B8",
     fontWeight: "500",
     flexWrap: "wrap",
+    marginTop: 15,
   },
 
   container: {
@@ -310,8 +311,7 @@ const styles = StyleSheet.create({
 
   workoutSplitContainer: {
     backgroundColor: "white",
-    marginLeft: 10,
-    marginRight: 10,
+    marginHorizontal: 25,
     borderRadius: 12,
     paddingTop: 15,
     paddingBottom: 15,
@@ -328,17 +328,18 @@ const styles = StyleSheet.create({
 
   workoutSplitTitle: {
     marginLeft: 25,
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: "bold",
   },
 
   workoutSplitDescription: {
-    fontSize: 16,
+    fontSize: 15,
     color: "#94A3B8",
     fontWeight: "500",
     flexWrap: "wrap",
     marginLeft: 25,
     marginRight: 25,
     marginBottom: 15,
+    marginTop: 10,
   },
 });
