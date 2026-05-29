@@ -26,7 +26,7 @@ export const AppCustomButton = ({
       onPress={onPress}
       icon={<Icon size={20} color={colour === "default" ? "white" : "black"} />}
       buttonStyle={{
-        borderRadius: 5,
+        borderRadius: 12,
         backgroundColor: colour === "default" ? "#3DD8C3" : "#F1F5F7",
         height: 56,
         marginHorizontal: 25,
