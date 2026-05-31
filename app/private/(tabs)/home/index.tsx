@@ -263,46 +263,58 @@ const home = () => {
             </View>
 
             <View style={styles.manageOutsideBoxContainer}>
-              <View style={styles.manageInsideBoxContainer}>
-                <View style={styles.mangeInsideBoxIcon}>
-                  <SquarePen />
+              <Pressable>
+                <View style={styles.manageInsideBoxContainer}>
+                  <View style={styles.mangeInsideBoxIcon}>
+                    <SquarePen />
+                  </View>
+                  <Text style={styles.mangeInsideBoxHeader}>Edit workout</Text>
+                  <Text style={styles.mangeInsideBoxDescription}>
+                    Update Exercise
+                  </Text>
                 </View>
-                <Text style={styles.mangeInsideBoxHeader}>Edit workout</Text>
-                <Text style={styles.mangeInsideBoxDescription}>
-                  Update Exercise
-                </Text>
-              </View>
+              </Pressable>
 
-              <View style={styles.manageInsideBoxContainer}>
-                <View style={styles.mangeInsideBoxIcon}>
-                  <CalendarRange />
+              <Pressable>
+                <View style={styles.manageInsideBoxContainer}>
+                  <View style={styles.mangeInsideBoxIcon}>
+                    <CalendarRange />
+                  </View>
+                  <Text style={styles.mangeInsideBoxHeader}>
+                    Plan this week
+                  </Text>
+                  <Text style={styles.mangeInsideBoxDescription}>
+                    Next training days
+                  </Text>
                 </View>
-                <Text style={styles.mangeInsideBoxHeader}>Plan this week</Text>
-                <Text style={styles.mangeInsideBoxDescription}>
-                  Next training days
-                </Text>
-              </View>
+              </Pressable>
             </View>
 
             <View style={styles.manageOutsideBoxContainer}>
-              <View style={styles.manageInsideBoxContainer}>
-                <View style={styles.mangeInsideBoxIcon}>
-                  <History />
+              <Pressable>
+                <View style={styles.manageInsideBoxContainer}>
+                  <View style={styles.mangeInsideBoxIcon}>
+                    <History />
+                  </View>
+                  <Text style={styles.mangeInsideBoxHeader}>
+                    Recent workouts
+                  </Text>
+                  <Text style={styles.mangeInsideBoxDescription}>
+                    See latest session
+                  </Text>
                 </View>
-                <Text style={styles.mangeInsideBoxHeader}>Recent workouts</Text>
-                <Text style={styles.mangeInsideBoxDescription}>
-                  See latest session
-                </Text>
-              </View>
+              </Pressable>
 
               <View style={styles.manageInsideBoxContainer}>
-                <View style={styles.mangeInsideBoxIcon}>
-                  <Activity />
-                </View>
-                <Text style={styles.mangeInsideBoxHeader}>Activity Log</Text>
-                <Text style={styles.mangeInsideBoxDescription}>
-                  2 workouts logged
-                </Text>
+                <Pressable>
+                  <View style={styles.mangeInsideBoxIcon}>
+                    <Activity />
+                  </View>
+                  <Text style={styles.mangeInsideBoxHeader}>Activity Log</Text>
+                  <Text style={styles.mangeInsideBoxDescription}>
+                    2 workouts logged
+                  </Text>
+                </Pressable>
               </View>
             </View>
           </View>

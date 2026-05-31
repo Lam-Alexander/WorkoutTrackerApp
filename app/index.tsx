@@ -16,7 +16,7 @@ const App = () => {
     Math.round(PixelRatio.roundToNearestPixel(size * scale));
 
   if (session && session.user) {
-    return <Redirect href="private/(tabs)/home" />;
+    return <Redirect href="private/(tabs)/workout/createWorkoutTemplate" />;
   }
 
   return (

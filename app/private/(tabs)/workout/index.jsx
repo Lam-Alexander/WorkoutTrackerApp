@@ -173,7 +173,7 @@ const workout = () => {
             <View style={styles.cards}>
               <Info size={25} color="#2AD4B2" />
 
-              <Text style={{ padding: 15, fontSize: 15, fontWeight: 500 }}>
+              <Text style={{ fontWeight: 500 }}>
                 You don’t have any workout templates yet. Create one to get
                 started.
               </Text>
@@ -236,12 +236,13 @@ const styles = StyleSheet.create({
 
   cards: {
     backgroundColor: "#EAFBF7",
-    marginLeft: 15,
-    marginRight: 15,
+    marginHorizontal: 15,
     marginBottom: 12,
     padding: 16,
-    borderRadius: 12,
+    borderRadius: 16,
+    paddingRight: 50,
     flexDirection: "row",
+    gap: 10,
   },
 
   cardContainer: {
