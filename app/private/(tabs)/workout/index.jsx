@@ -141,8 +141,11 @@ const workout = () => {
   });
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["top"]}>
+      <ScrollView
+        style={{ flex: 1 }}
+        contentContainerStyle={{ paddingBottom: 25 }}
+      >
         <View style={styles.margin}>
           <View>
             <Text style={styles.dateContainer}>{today}</Text>
@@ -254,7 +257,7 @@ const styles = StyleSheet.create({
 
   cardText: {
     textAlign: "center",
-    flexShrink: 1, // important for wrapping in flex layouts
+    flexShrink: 1,
   },
 
   headerDescriptionText: {
