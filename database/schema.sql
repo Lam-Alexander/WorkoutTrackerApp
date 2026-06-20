@@ -64,3 +64,12 @@ CHECK (length(trim(exercise_template_name)) > 0)
 -- =====================================================
 ALTER TABLE workout_template
 ADD COLUMN workout_template_icon TEXT;
+
+
+
+-- =====================================================
+-- Schema Update
+-- Added target for exercise template to track workout targets.
+-- =====================================================
+ALTER TABLE exercise_template
+ADD COLUMN target_scheme TEXT;

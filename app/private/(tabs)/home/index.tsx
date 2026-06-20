@@ -305,8 +305,8 @@ const home = () => {
                 </View>
               </Pressable>
 
-              <View style={styles.manageInsideBoxContainer}>
-                <Pressable>
+              <Pressable>
+                <View style={styles.manageInsideBoxContainer}>
                   <View style={styles.mangeInsideBoxIcon}>
                     <Activity />
                   </View>
@@ -314,8 +314,8 @@ const home = () => {
                   <Text style={styles.mangeInsideBoxDescription}>
                     2 workouts logged
                   </Text>
-                </Pressable>
-              </View>
+                </View>
+              </Pressable>
             </View>
           </View>
         </View>

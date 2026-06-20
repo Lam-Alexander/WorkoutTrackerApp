@@ -11,25 +11,33 @@ import React, { useState } from "react";
 import { useSession } from "../../../../context/SessionContext";
 import { supabase } from "../../../../lib/supabase";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Trash2 } from "lucide-react-native";
 
 const createWorkoutTemplate = () => {
   const { session } = useSession();
   const [templateName, setTemplateName] = useState<string>("");
-  const [exerciseName, setExerciseName] = useState<string[]>([""]);
+  const [exercise, setExercise] = useState([{ name: "", target: "" }]);
+  // const [exerciseTarget, setExerciseTarget] = useState<string>("");
 
   const addExerciseField = () => {
-    setExerciseName((prev) => [...prev, ""]);
+    setExercise((prev) => [...prev, { name: "", target: "" }]);
   };
 
-  const handleExerciseChange = (text: string, index: number) => {
-    const updatedExercise = [...exerciseName];
-    updatedExercise[index] = text;
-    setExerciseName(updatedExercise);
+  const handleExerciseNameChange = (text: string, index: number) => {
+    const updatedExercise = [...exercise];
+    updatedExercise[index].name = text;
+    setExercise(updatedExercise);
+  };
+
+  const handleExerciseTargetChange = (text: string, index: number) => {
+    const updatedExercise = [...exercise];
+    updatedExercise[index].target = text;
+    setExercise(updatedExercise);
   };
 
   const handleRemoveExercise = (index: number) => {
-    const newArr = exerciseName.filter((_, i) => i !== index);
-    setExerciseName(newArr);
+    const newArr = exercise.filter((_, i) => i !== index);
+    setExercise(newArr);
   };
 
   const handleCreateWorkoutTemplate = async () => {
@@ -38,8 +46,8 @@ const createWorkoutTemplate = () => {
       return;
     }
 
-    const trimmedNonEmptyExerciseNames = exerciseName
-      .map((exercise) => exercise.trim())
+    const trimmedNonEmptyExercises = exercise
+      .map((exercise) => exercise.name.trim())
       .filter((exercise) => exercise !== "");
 
     if (templateName.trim() === "") {
@@ -47,7 +55,7 @@ const createWorkoutTemplate = () => {
       return;
     }
 
-    if (trimmedNonEmptyExerciseNames.length === 0) {
+    if (trimmedNonEmptyExercises.length === 0) {
       Alert.alert("Add at least one exercise");
       return;
     }
@@ -77,8 +85,8 @@ const createWorkoutTemplate = () => {
     console.log(data);
     setTemplateName("");
 
-    const formattedExerciseTemplateData = exerciseName.map(
-      (exercises, index) => ({
+    const formattedExerciseTemplateData = exercise.map(
+      (exercises, index, exerciseTarget) => ({
         workout_template_id: data.id,
         exercise_template_name: exercises,
         exercise_template_order_idx: index + 1,
@@ -93,11 +101,11 @@ const createWorkoutTemplate = () => {
       console.log("Error", exerciseError.message);
       return;
     }
-    setExerciseName([""]);
+    setExercise([{ name: "", target: "" }]);
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["top"]}>
       <ScrollView
         style={{ flex: 1 }}
         contentContainerStyle={{ paddingBottom: 25 }}
@@ -130,51 +138,128 @@ const createWorkoutTemplate = () => {
                 Choose a preset like push, pull, legs or add your own custom
                 name
               </Text>
+              <View>
+                <TextInput
+                  style={{
+                    borderColor: "grey",
+                    borderWidth: 1,
+                    height: 40,
+                    paddingHorizontal: 10,
+                    marginTop: 10,
+                  }}
+                  placeholder="Template Name"
+                  value={templateName}
+                  onChangeText={(text) => setTemplateName(text)}
+                />
+              </View>
             </View>
-            <TextInput
-              style={{
-                borderColor: "grey",
-                borderWidth: 1,
-                height: 40,
-                paddingHorizontal: 10,
-                marginTop: 10,
-              }}
-              placeholder="Template Name"
-              value={templateName}
-              onChangeText={(text) => setTemplateName(text)}
-            />
           </View>
 
-          {exerciseName.map((exercises, index) => (
-            <View
-              key={index}
-              style={{
-                flexDirection: "row",
-                marginBottom: 10,
-                alignItems: "center",
-              }}
-            >
-              <Text>Hello</Text>
-              <Text>{index + 1}</Text>
-              <TextInput
-                value={exercises}
-                onChangeText={(text) => handleExerciseChange(text, index)}
-                placeholder={`Exercise ${index + 1}`}
-                style={{
-                  flex: 1,
-                  borderColor: "gray",
-                  height: 50,
-                  borderWidth: 1,
-                  padding: 8,
-                }}
-              />
-              <Button onPress={() => handleRemoveExercise(index)} title="x" />
-            </View>
-          ))}
           <View>
-            <Button title="Add Exercise" onPress={addExerciseField} />
+            <View style={styles.workoutSplitContainer}>
+              <Text
+                style={{ fontSize: 20, fontWeight: "bold", marginBottom: 8 }}
+              >
+                2. Add your exercise
+              </Text>
+              <Text style={{ color: "#486895" }}>
+                Choose a preset like push, pull, legs or add your own custom
+                name
+              </Text>
+              <View>
+                {exercise.map((item, index) => (
+                  <View
+                    key={index}
+                    style={{
+                      // marginBottom: 10,
+                      marginVertical: 15,
+                      backgroundColor: "#F1F5F9",
+                      padding: 15,
+                      borderRadius: 10,
+                    }}
+                  >
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        marginBottom: 25,
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Text style={{ fontSize: 16, fontWeight: "500" }}>
+                        Exercise {index + 1}
+                      </Text>
+                      {/* <View
+                        style={{
+                          width: 30,
+                          height: 30,
+                          backgroundColor: "#E4EBF3",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          borderRadius: 20,
+                        }}
+                      >
+                        <Text style={{ fontWeight: 500 }}>{index + 1}</Text>
+                      </View> */}
+                      <Trash2
+                        onPress={() => handleRemoveExercise(index)}
+                        // style={{ marginHorizontal: 25 }}
+                        color={"#6B7280"}
+                      />
+                    </View>
+                    <View
+                      style={{ flexDirection: "row", alignItems: "center" }}
+                    >
+                      <View style={{ width: "100%", gap: 20 }}>
+                        {/* EXERCISE INPUT */}
+                        <TextInput
+                          value={item.name}
+                          onChangeText={(text) =>
+                            handleExerciseNameChange(text, index)
+                          }
+                          placeholder={`Exercise ${index + 1}`}
+                          style={{
+                            flex: 1,
+                            // borderColor: "gray",
+                            height: 50,
+                            borderWidth: 0,
+                            padding: 8,
+                            backgroundColor: "white",
+                            borderRadius: 10,
+                          }}
+                        />
+
+                        {/* TARGET INPUT */}
+                        <TextInput
+                          value={item.target}
+                          onChangeText={(text) =>
+                            handleExerciseTargetChange(text, index)
+                          }
+                          placeholder={"3 Sets of 8-12"}
+                          style={{
+                            flex: 1,
+                            // borderColor: "gray",
+                            height: 50,
+                            borderWidth: 0,
+                            padding: 8,
+                            backgroundColor: "white",
+                            borderRadius: 10,
+                          }}
+                        />
+                      </View>
+                    </View>
+                  </View>
+                ))}
+                <View>
+                  <Button title="Add Exercise" onPress={addExerciseField} />
+                </View>
+              </View>
+            </View>
           </View>
-          <Button title="Add Template" onPress={handleCreateWorkoutTemplate} />
+
+          <Button
+            title="Save workout template"
+            onPress={handleCreateWorkoutTemplate}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
