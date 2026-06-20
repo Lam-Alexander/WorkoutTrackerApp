@@ -51,8 +51,8 @@ export default SelectableBox;
 const styles = StyleSheet.create({
   cards: {
     backgroundColor: "#F1F5F7",
-    marginLeft: 15,
-    marginRight: 15,
+    // backgroundColor: "white",
+    marginHorizontal: 25,
     marginBottom: 12,
     padding: 16,
     borderRadius: 12,
@@ -62,13 +62,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: "bold",
-    fontSize: 16
+    fontSize: 14
   },
 
   description: {
     color: "#7E8B9D",
     fontWeight: 500,
-    fontSize: 14
+    fontSize: 12
   },
 
   cardsSelected: {
@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 30,
     backgroundColor: "white",
+    // backgroundColor: "#F1F5F7",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -93,6 +94,7 @@ const styles = StyleSheet.create({
     height: 28,
     borderRadius: 16,
     backgroundColor: "white",
+    // backgroundColor: "#F1F5F7",
     justifyContent: "center",
     alignItems: "center",
   },

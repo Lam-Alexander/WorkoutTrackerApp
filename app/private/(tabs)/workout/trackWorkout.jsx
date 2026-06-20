@@ -6,14 +6,12 @@ import {
   TextInput,
   Alert,
 } from "react-native";
-import React, { useEffect, useState } from "react";
-import { router, useLocalSearchParams } from "expo-router";
+import { useEffect, useState } from "react";
+import { router, useLocalSearchParams, useNavigation } from "expo-router";
 import { supabase } from "../../../../lib/supabase";
 import { AppCustomButton } from "../../../../components/shared/AppCustomButton";
-
 import { Plus, Trash2 } from "lucide-react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation } from "@react-navigation/native";
 
 const trackWorkout = () => {
   const [exercise, setExercise] = useState([]);
@@ -75,21 +73,12 @@ const trackWorkout = () => {
         exerciseIdx: ex.exercise_log_order_idx,
         exerciseName: ex.exercise_template.exercise_template_name,
 
-        sets:
-          // ex.sets.length > 0
-          ex.sets.map((set) => ({
-            id: set.id,
-            reps: String(set.reps ?? ""),
-            weights: String(set.weights ?? ""),
-            set_number: set.set_number,
-          })),
-        // : [
-        //     {
-        //       reps: "",
-        //       weights: "",
-        //       set_number: 1,
-        //     },
-        //   ],
+        sets: ex.sets.map((set) => ({
+          id: set.id,
+          reps: String(set.reps ?? ""),
+          weights: String(set.weights ?? ""),
+          set_number: set.set_number,
+        })),
       }));
 
       setExercise(formattedData);
@@ -344,14 +333,21 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 16,
 
-    // iOS shadow
+    // // iOS shadow
+    // shadowColor: "#000",
+    // shadowOffset: { width: 0, height: 4 },
+    // shadowOpacity: 0.1,
+    // shadowRadius: 6,
+
+    // // Android shadow
+    // elevation: 3,
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
-    shadowRadius: 6,
+    shadowRadius: 0,
 
     // Android shadow
-    elevation: 3,
+    elevation: 0.4,
   },
 
   row: {

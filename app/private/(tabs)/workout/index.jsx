@@ -163,44 +163,44 @@ const workout = () => {
             </Text>
           </View>
         </View>
-        <View style={styles.workoutSplitContainer}>
+        {/* <View style={styles.workoutSplitContainer}>
           <Text style={styles.workoutSplitTitle}>Workout Split</Text>
           <Text style={styles.workoutSplitDescription}>
             Start with a common split or choose a combined day when you want
             more variety.
-          </Text>
-          {workoutTemplate.length === 0 ? (
-            <View style={styles.cards}>
-              <Info size={25} color="#2AD4B2" />
+          </Text> */}
+        {workoutTemplate.length === 0 ? (
+          <View style={styles.cards}>
+            <Info size={25} color="#2AD4B2" />
 
-              <Text style={{ fontWeight: 500 }}>
-                You don’t have any workout templates yet. Create one to get
-                started.
-              </Text>
-            </View>
-          ) : (
-            workoutTemplate.map((item, index) => (
-              <SelectableBox
-                key={item.templateId}
-                icon={item.templateIcon}
-                label={item.templateName}
-                title={item.templateName}
-                description={item.exercises
-                  .slice(0, 3)
-                  .map((exercise) => exercise.exerciseName)
-                  .join(", ")}
-                selected={selectedTemplate?.templateId === item.templateId}
-                onPress={() =>
-                  setSelectedTemplate(
-                    selectedTemplate?.templateId === item.templateId
-                      ? null
-                      : item,
-                  )
-                }
-              />
-            ))
-          )}
-        </View>
+            <Text style={{ fontWeight: 500 }}>
+              You don’t have any workout templates yet. Create one to get
+              started.
+            </Text>
+          </View>
+        ) : (
+          workoutTemplate.map((item, index) => (
+            <SelectableBox
+              key={item.templateId}
+              icon={item.templateIcon}
+              label={item.templateName}
+              title={item.templateName}
+              description={item.exercises
+                .slice(0, 3)
+                .map((exercise) => exercise.exerciseName)
+                .join(", ")}
+              selected={selectedTemplate?.templateId === item.templateId}
+              onPress={() =>
+                setSelectedTemplate(
+                  selectedTemplate?.templateId === item.templateId
+                    ? null
+                    : item,
+                )
+              }
+            />
+          ))
+        )}
+        {/* </View> */}
         <View style={{ marginTop: 25 }}>
           <AppCustomButton
             title="Continue to Exercise"
@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
 
   cards: {
     backgroundColor: "#EAFBF7",
-    marginHorizontal: 15,
+    marginHorizontal: 25,
     marginBottom: 12,
     padding: 16,
     borderRadius: 16,
@@ -245,24 +245,8 @@ const styles = StyleSheet.create({
     gap: 10,
   },
 
-  cardContainer: {
-    backgroundColor: "#EAFBF7",
-    marginLeft: 15,
-    marginRight: 15,
-    marginBottom: 12,
-    padding: 16,
-    borderRadius: 12,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  cardText: {
-    textAlign: "center",
-    flexShrink: 1,
-  },
-
   headerDescriptionText: {
-    fontSize: 16,
+    fontSize: 14,
     color: "#94A3B8",
     fontWeight: "500",
     flexWrap: "wrap",
@@ -281,7 +265,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 32,
+    fontSize: 24,
     fontWeight: "bold",
   },
 
@@ -295,7 +279,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     color: "#6B7280",
-    fontSize: 16,
+    fontSize: 12,
     fontWeight: 500,
   },
 
@@ -311,33 +295,35 @@ const styles = StyleSheet.create({
   dayPlanText: {
     color: "#065F46",
     fontWeight: "600",
+    fontSize: 12,
   },
 
   workoutSplitContainer: {
     backgroundColor: "white",
-    marginHorizontal: 25,
+    // backgroundColor: "#f2f5f7",
+    marginHorizontal: 12,
     borderRadius: 12,
     paddingTop: 15,
     paddingBottom: 15,
 
     // iOS shadow
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 0,
 
     // Android shadow
-    elevation: 3,
+    elevation: 0.2,
   },
 
   workoutSplitTitle: {
     marginLeft: 25,
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: "bold",
   },
 
   workoutSplitDescription: {
-    fontSize: 15,
+    fontSize: 12,
     color: "#94A3B8",
     fontWeight: "500",
     flexWrap: "wrap",

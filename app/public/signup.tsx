@@ -1,10 +1,19 @@
-import { Alert, StyleSheet, Text, View, Pressable } from "react-native";
+import {
+  Alert,
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+  ScrollView,
+  Platform,
+} from "react-native";
 import React, { useState } from "react";
 import { supabase } from "../../lib/supabase";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AuthCustomInput } from "../../components/auth/AuthCustomInput";
 import { AuthCustomButton } from "../../components/auth/AuthCustomButton";
-import { Redirect, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
+import { KeyboardAvoidingView } from "react-native";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -78,119 +87,129 @@ const Signup = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
-      <View style={{ flex: 1 }}>
-        <View>
-          <Text
-            style={{
-              textAlign: "center",
-              fontSize: 28,
-              fontWeight: "bold",
-              marginTop: -25,
-            }}
-          >
-            Fit<Text style={{ color: "#00dfc0" }}>Tracker.</Text>
-          </Text>
-          <Text
-            style={{
-              fontSize: 16,
-              fontWeight: "600",
-              color: "#797979",
-              textAlign: "center",
-              marginTop: 20,
-            }}
-          >
-            Create your account
-          </Text>
-        </View>
-        <View style={{ marginTop: 30, marginBottom: -30, padding: 15 }}>
-          <AuthCustomInput
-            label="Name"
-            leftIcon={{ type: "font-awesome", name: "user", size: 30 }}
-            onChangeText={(text) => setName(text)}
-            value={name}
-            placeholder=" Name"
-          />
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        keyboardShouldPersistTaps="handled"
+      >
+        <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+          <View style={{ flex: 1 }}>
+            <View>
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontSize: 28,
+                  fontWeight: "bold",
+                  marginTop: -25,
+                }}
+              >
+                Fit<Text style={{ color: "#00dfc0" }}>Tracker.</Text>
+              </Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: "600",
+                  color: "#797979",
+                  textAlign: "center",
+                  marginTop: 20,
+                }}
+              >
+                Create your account
+              </Text>
+            </View>
+            <View style={{ marginTop: 30, marginBottom: -30, padding: 15 }}>
+              <AuthCustomInput
+                label="Name"
+                // leftIcon={{ type: "font-awesome", name: "user", size: 30 }}
+                onChangeText={(text) => setName(text)}
+                value={name}
+                placeholder=" Name"
+              />
 
-          <AuthCustomInput
-            label="Email"
-            leftIcon={{
-              type: "font-awesome",
-              name: "envelope",
-            }}
-            onChangeText={(text) => setEmail(text)}
-            value={email}
-            placeholder=" Email@address.com"
-          />
-          <AuthCustomInput
-            label="Password"
-            leftIcon={{
-              type: "font-awesome",
-              name: "lock",
-              size: 35,
-            }}
-            onChangeText={(text) => setPassword(text)}
-            value={password}
-            placeholder=" Password"
-            secureTextEntry={true}
-          />
+              <AuthCustomInput
+                label="Email"
+                // leftIcon={{
+                //   type: "font-awesome",
+                //   name: "envelope",
+                // }}
+                onChangeText={(text) => setEmail(text)}
+                value={email}
+                placeholder=" Email@address.com"
+              />
+              <AuthCustomInput
+                label="Password"
+                // leftIcon={{
+                //   type: "font-awesome",
+                //   name: "lock",
+                //   size: 35,
+                // }}
+                onChangeText={(text) => setPassword(text)}
+                value={password}
+                placeholder=" Password"
+                secureTextEntry={true}
+              />
 
-          <AuthCustomInput
-            label="Confirm Password"
-            leftIcon={{
-              type: "font-awesome",
-              name: "lock",
-              size: 35,
-            }}
-            onChangeText={(text) => setConfirmPassword(text)}
-            value={confirmPassword}
-            placeholder=" Confirm Password"
-            secureTextEntry={true}
-          />
-        </View>
+              <AuthCustomInput
+                label="Confirm Password"
+                // leftIcon={{
+                //   type: "font-awesome",
+                //   name: "lock",
+                //   size: 35,
+                // }}
+                onChangeText={(text) => setConfirmPassword(text)}
+                value={confirmPassword}
+                placeholder=" Confirm Password"
+                secureTextEntry={true}
+              />
+            </View>
 
-        {errorMessage !== "" && (
-          <Text style={{ color: "red", textAlign: "center" }}>
-            {errorMessage}
-          </Text>
-        )}
+            {errorMessage !== "" && (
+              <Text style={{ color: "red", textAlign: "center" }}>
+                {errorMessage}
+              </Text>
+            )}
 
-        <View
-          style={{
-            flex: 1,
-            alignItems: "center",
-            justifyContent: "space-evenly",
-          }}
-        >
-          <AuthCustomButton
-            title="Register"
-            onPress={() => signUpWithEmail()}
-            type="solid"
-            containerStyle={{ width: "70%" }}
-            loading={loading}
-          />
-          <View style={{ flexDirection: "row" }}>
-            <Text style={{ color: "#6B7280", fontSize: 15 }}>
-              Already have an account?{" "}
-            </Text>
-            <Pressable>
-              {({ pressed }) => (
-                <Text
-                  style={{
-                    color: pressed ? "#00dfc0" : "#3DD8C3",
-                    fontWeight: "bold",
-                    fontSize: 15,
-                  }}
-                  onPress={() => router.push("./login")}
-                >
-                  Sign In
+            <View
+              style={{
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "space-evenly",
+              }}
+            >
+              <AuthCustomButton
+                title="Register"
+                onPress={() => signUpWithEmail()}
+                type="solid"
+                containerStyle={{ width: "70%" }}
+                loading={loading}
+              />
+              <View style={{ flexDirection: "row" }}>
+                <Text style={{ color: "#6B7280", fontSize: 15 }}>
+                  Already have an account?{" "}
                 </Text>
-              )}
-            </Pressable>
+                <Pressable>
+                  {({ pressed }) => (
+                    <Text
+                      style={{
+                        color: pressed ? "#00dfc0" : "#3DD8C3",
+                        fontWeight: "bold",
+                        fontSize: 15,
+                      }}
+                      onPress={() => router.push("./login")}
+                    >
+                      Sign In
+                    </Text>
+                  )}
+                </Pressable>
+              </View>
+            </View>
           </View>
-        </View>
-      </View>
-    </SafeAreaView>
+        </SafeAreaView>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
