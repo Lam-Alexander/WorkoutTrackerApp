@@ -263,7 +263,7 @@ const home = () => {
             </View>
 
             <View style={styles.manageOutsideBoxContainer}>
-              <Pressable>
+              <Pressable style={{flex: 1}}>
                 <View style={styles.manageInsideBoxContainer}>
                   <View style={styles.mangeInsideBoxIcon}>
                     <SquarePen />
@@ -275,7 +275,7 @@ const home = () => {
                 </View>
               </Pressable>
 
-              <Pressable>
+              <Pressable style={{flex: 1}}>
                 <View style={styles.manageInsideBoxContainer}>
                   <View style={styles.mangeInsideBoxIcon}>
                     <CalendarRange />
@@ -291,7 +291,7 @@ const home = () => {
             </View>
 
             <View style={styles.manageOutsideBoxContainer}>
-              <Pressable>
+              <Pressable style={{flex: 1}}>
                 <View style={styles.manageInsideBoxContainer}>
                   <View style={styles.mangeInsideBoxIcon}>
                     <History />
@@ -305,7 +305,7 @@ const home = () => {
                 </View>
               </Pressable>
 
-              <Pressable>
+              <Pressable style={{flex: 1}}>
                 <View style={styles.manageInsideBoxContainer}>
                   <View style={styles.mangeInsideBoxIcon}>
                     <Activity />
@@ -392,11 +392,21 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
+  // manageInsideBoxContainer: {
+  //   flex: 1,
+  //   height: 128,
+  //   width: 159,
+  //   borderColor: "#EBEBEB",
+  //   borderWidth: 2,
+  //   backgroundColor: "white",
+  //   borderRadius: 16,
+  //   padding: 15,
+  //   justifyContent: "space-evenly",
+  // },
+
   manageInsideBoxContainer: {
-    // width: "45%",
     flex: 1,
     height: 128,
-    width: 159,
     borderColor: "#EBEBEB",
     borderWidth: 2,
     backgroundColor: "white",
@@ -407,7 +417,6 @@ const styles = StyleSheet.create({
 
   manageOutsideBoxContainer: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
     marginVertical: 12,
     gap: 12,
   },

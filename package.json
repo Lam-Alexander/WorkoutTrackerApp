@@ -9,26 +9,32 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "2.1.2",
-    "@rneui/themed": "^4.0.0-rc.8",
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "@react-navigation/native": "^7.3.3",
+    "@rneui/base": "^5.0.0",
+    "@rneui/themed": "^5.0.0",
     "@supabase/supabase-js": "^2.56.1",
-    "expo": "~53.0.22",
-    "expo-asset": "~11.1.7",
-    "expo-constants": "~17.1.7",
-    "expo-linking": "~7.1.7",
-    "expo-router": "~5.1.6",
-    "expo-status-bar": "~2.2.3",
+    "@types/react": "~19.2.14",
+    "expo": "^56.0.12",
+    "expo-asset": "~56.0.17",
+    "expo-constants": "~56.0.18",
+    "expo-linking": "~56.0.14",
+    "expo-router": "~56.2.11",
+    "expo-status-bar": "~56.0.4",
     "lucide-react-native": "^1.11.0",
-    "react": "19.0.0",
-    "react-native": "0.79.6",
-    "react-native-safe-area-context": "5.4.0",
-    "react-native-screens": "~4.11.1",
-    "react-native-url-polyfill": "^2.0.0"
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-native": "0.85.3",
+    "react-native-gesture-handler": "~2.31.1",
+    "react-native-reanimated": "4.3.1",
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-screens": "4.25.2",
+    "react-native-url-polyfill": "^2.0.0",
+    "react-test-renderer": "^19.2.7"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
-    "@types/react": "~19.0.10",
-    "typescript": "~5.8.3"
+    "typescript": "~6.0.3"
   },
   "private": true
 }

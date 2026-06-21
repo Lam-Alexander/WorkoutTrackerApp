@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Text, View, Image, Pressable, Alert, ScrollView, KeyboardAvoidingView, Platform} from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  Pressable,
+  Alert,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { HeaderLogo } from "../../components/shared/HeaderLogo";
 import { AuthCustomInput } from "../../components/auth/AuthCustomInput";
@@ -7,7 +16,6 @@ import { AuthCustomButton } from "../../components/auth/AuthCustomButton";
 import { Redirect, useRouter } from "expo-router";
 import { supabase } from "../../lib/supabase";
 import { useSession } from "../../context/SessionContext";
-
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -34,115 +42,114 @@ const Login = () => {
 
   return (
     <KeyboardAvoidingView
-    style={{ flex: 1 }}
-    behavior={Platform.OS === "ios" ? "padding" : "height"}
-  >
-    <ScrollView
-      contentContainerStyle={{ flexGrow: 1 }}
-      keyboardShouldPersistTaps="handled"
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-    <SafeAreaView
-      style={{
-        flex: 1,
-        backgroundColor: "white",
-        justifyContent: "space-evenly",
-      }}
-    >
-      <View>
-        <HeaderLogo />
-        <Text
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        keyboardShouldPersistTaps="handled"
+      >
+        <SafeAreaView
           style={{
-            fontSize: 16,
-            fontWeight: "600",
-            color: "#797979",
-            textAlign: "center",
-            marginTop: 10,
+            flex: 1,
+            backgroundColor: "white",
+            justifyContent: "space-evenly",
           }}
         >
-          Welcome Back!
-        </Text>
-      </View>
-      <View style={{ alignItems: "center" }}>
-        <Image
-          style={{ width: 275, height: 267, marginTop: 5 }}
-          source={require("../../images/women-barbel.png")}
-        />
-      </View>
-      <View
-        style={{
-          flex: 1,
-          alignItems: "center",
-          padding: 15,
-          justifyContent: "space-evenly",
-        }}
-      >
-        <AuthCustomInput
-          label="Email"
-          leftIcon={{
-            type: "font-awesome",
-            name: "envelope",
-          }}
-          onChangeText={(text) => setEmail(text)}
-          value={email}
-          placeholder=" Email@address.com"
-        />
-
-        <AuthCustomInput
-          label="Password"
-          leftIcon={{
-            type: "font-awesome",
-            name: "lock",
-            size: 35,
-          }}
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-          placeholder=" Password"
-          secureTextEntry={true}
-        />
-
-        <AuthCustomButton
-          title="Login"
-          onPress={() => signInWithEmail()}
-          type="solid"
-          containerStyle={{ width: "70%" }}
-          loading={loading}
-        />
-
-        <AuthCustomButton
-          title="Forgot Password?"
-          type="clear"
-          onPress={() => router.push("./auth/forgot-password")}
-          containerStyle={{marginTop: 20}}
-        />
-      </View>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "center",
-        }}
-      >
-        <Text style={{ color: "#6B7280", fontSize: 15 }}>
-          Don't have an account?{" "}
-        </Text>
-        <Pressable>
-          {({ pressed }) => (
+          <View>
+            <HeaderLogo />
             <Text
               style={{
-                color: pressed ? "#00dfc0" : "#3DD8C3",
-                fontWeight: "bold",
-                fontSize: 15,
-                marginBottom:40
-                
+                fontSize: 16,
+                fontWeight: "600",
+                color: "#797979",
+                textAlign: "center",
+                marginTop: 10,
               }}
-              onPress={() => router.push("./signup")}
             >
-              Sign Up
+              Welcome Back!
             </Text>
-          )}
-        </Pressable>
-      </View>
-    </SafeAreaView>
-    </ScrollView>
+          </View>
+          <View style={{ alignItems: "center" }}>
+            <Image
+              style={{ width: 275, height: 267, marginTop: 5 }}
+              source={require("../../images/women-barbel.png")}
+            />
+          </View>
+          <View
+            style={{
+              flex: 1,
+              alignItems: "center",
+              padding: 15,
+              justifyContent: "space-evenly",
+            }}
+          >
+            <AuthCustomInput
+              label="Email"
+              // leftIcon={{
+              //   type: "font-awesome",
+              //   name: "envelope",
+              // }}
+              onChangeText={(text) => setEmail(text)}
+              value={email}
+              placeholder=" Email@address.com"
+            />
+
+            <AuthCustomInput
+              label="Password"
+              // leftIcon={{
+              //   type: "font-awesome",
+              //   name: "lock",
+              //   size: 35,
+              // }}
+              onChangeText={(text) => setPassword(text)}
+              value={password}
+              placeholder=" Password"
+              secureTextEntry={true}
+            />
+
+            <AuthCustomButton
+              title="Login"
+              onPress={() => signInWithEmail()}
+              type="solid"
+              containerStyle={{ width: "70%" }}
+              loading={loading}
+            />
+
+            <AuthCustomButton
+              title="Forgot Password?"
+              type="clear"
+              onPress={() => router.push("./auth/forgot-password")}
+              containerStyle={{ marginTop: 20 }}
+            />
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+          >
+            <Text style={{ color: "#6B7280", fontSize: 15 }}>
+              Don't have an account?{" "}
+            </Text>
+            <Pressable>
+              {({ pressed }) => (
+                <Text
+                  style={{
+                    color: pressed ? "#00dfc0" : "#3DD8C3",
+                    fontWeight: "bold",
+                    fontSize: 15,
+                    marginBottom: 40,
+                  }}
+                  onPress={() => router.push("./signup")}
+                >
+                  Sign Up
+                </Text>
+              )}
+            </Pressable>
+          </View>
+        </SafeAreaView>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 };
