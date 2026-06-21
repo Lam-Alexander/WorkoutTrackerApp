@@ -10,6 +10,38 @@ interface CustomButtonProps extends Omit<ButtonProps, "icon"> {
   onPress: () => void;
 }
 
+// export const AppCustomButton = ({
+//   title,
+//   loading,
+//   onPress,
+//   icon: Icon,
+//   buttonStyle,
+//   colour,
+//   ...props
+// }: CustomButtonProps) => {
+//   return (
+//     <Button
+//       title={title}
+//       loading={loading}
+//       onPress={onPress}
+//       icon={<Icon size={20} color={colour === "default" ? "white" : "black"} />}
+//       buttonStyle={{
+//         borderRadius: 12,
+//         backgroundColor: colour === "default" ? "#3DD8C3" : "#F1F5F7",
+//         height: 56,
+//         marginHorizontal: 25,
+//         alignItems: "center"
+        
+//       }}
+//       titleStyle={{
+//         color: colour === "default" ? "white" : "black",
+//         fontWeight: "500",
+//         padding: 10
+//       }}
+//       {...props}
+//     />
+//   );
+// };
 export const AppCustomButton = ({
   title,
   loading,
@@ -25,18 +57,20 @@ export const AppCustomButton = ({
       loading={loading}
       onPress={onPress}
       icon={<Icon size={20} color={colour === "default" ? "white" : "black"} />}
-      buttonStyle={{
-        borderRadius: 12,
-        backgroundColor: colour === "default" ? "#3DD8C3" : "#F1F5F7",
-        height: 56,
-        marginHorizontal: 25,
-        alignItems: "center"
-        
-      }}
+      buttonStyle={[
+        {
+          borderRadius: 12,
+          backgroundColor: colour === "default" ? "#3DD8C3" : "#F1F5F7",
+          height: 56,
+          marginHorizontal: 25,
+          alignItems: "center",
+        },
+        buttonStyle, // caller's override merges on top
+      ]}
       titleStyle={{
         color: colour === "default" ? "white" : "black",
         fontWeight: "500",
-        padding: 10
+        padding: 10,
       }}
       {...props}
     />

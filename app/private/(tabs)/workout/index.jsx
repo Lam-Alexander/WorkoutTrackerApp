@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, ScrollView, Alert } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Alert,
+  ActivityIndicator,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useCallback, useState } from "react";
 import SelectableBox from "../../../../components/shared/SelectableBox";
@@ -7,25 +14,12 @@ import { useRouter } from "expo-router";
 import { supabase } from "../../../../lib/supabase";
 import { useSession } from "../../../../context/SessionContext";
 import { useFocusEffect } from "expo-router";
-import {
-  PersonStanding,
-  Shield,
-  MoveDiagonal2,
-  SlidersHorizontal,
-  ArrowRight,
-  BicepsFlexed,
-  Info,
-} from "lucide-react-native";
-
-const iconMap = {
-  Shield: Shield,
-  PersonStanding: PersonStanding,
-  MoveDiagonal2: MoveDiagonal2,
-  BicepsFlexed: BicepsFlexed,
-};
+import { SlidersHorizontal, ArrowRight, Info } from "lucide-react-native";
+import { iconMap, DEFAULT_WORKOUT_ICON } from "./createWorkoutTemplate";
 
 const workout = () => {
   const [loading, setLoading] = useState(false);
+  const [isFetching, setIsFetching] = useState(true);
   const [workoutTemplate, setWorkoutTemplate] = useState([]);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const router = useRouter();
@@ -33,7 +27,12 @@ const workout = () => {
 
   useFocusEffect(
     useCallback(() => {
+      const userId = session.session?.user?.id;
+      if (!userId) return;
+
       const fetchTemplateData = async () => {
+        setIsFetching(true);
+
         const { data, error } = await supabase
           .from("workout_template")
           .select(
@@ -50,13 +49,16 @@ const workout = () => {
 
         if (error) {
           console.log("Error", error.message);
+          setIsFetching(false);
           return;
         }
 
         const formattedTemplateData = data.map((template) => ({
           templateId: template.id,
           templateName: template.workout_template_name,
-          templateIcon: iconMap[template.workout_template_icon] ?? BicepsFlexed,
+          templateIcon:
+            iconMap[template.workout_template_icon] ??
+            iconMap[DEFAULT_WORKOUT_ICON],
 
           exercises: template.exercise_template.map((exercise) => ({
             exerciseId: exercise.id,
@@ -66,6 +68,7 @@ const workout = () => {
         }));
 
         setWorkoutTemplate(formattedTemplateData);
+        setIsFetching(false);
       };
 
       fetchTemplateData();
@@ -78,7 +81,7 @@ const workout = () => {
       return;
     }
 
-    // setLoading(true);
+    setLoading(true);
 
     const userId = session.session.user.id;
     const templateId = selectedTemplate.templateId;
@@ -101,6 +104,7 @@ const workout = () => {
         "There was an issue starting the workout, Please try again",
       );
       console.log(workoutLogError.message);
+      setLoading(false);
       return;
     }
 
@@ -123,6 +127,7 @@ const workout = () => {
         "There was an issue starting workout, Please try again",
       );
       console.log(exerciseLogError.message);
+      setLoading(false);
       return;
     }
 
@@ -132,6 +137,7 @@ const workout = () => {
         workoutLogId: workoutLogId,
       },
     });
+    setLoading(false);
   };
 
   const today = new Date().toLocaleDateString("en-US", {
@@ -163,13 +169,12 @@ const workout = () => {
             </Text>
           </View>
         </View>
-        {/* <View style={styles.workoutSplitContainer}>
-          <Text style={styles.workoutSplitTitle}>Workout Split</Text>
-          <Text style={styles.workoutSplitDescription}>
-            Start with a common split or choose a combined day when you want
-            more variety.
-          </Text> */}
-        {workoutTemplate.length === 0 ? (
+
+        {isFetching ? (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color="#2AD4B2" />
+          </View>
+        ) : workoutTemplate.length === 0 ? (
           <View style={styles.cards}>
             <Info size={25} color="#2AD4B2" />
 
@@ -204,8 +209,7 @@ const workout = () => {
         <View style={{ marginTop: 25 }}>
           <AppCustomButton
             title="Continue to Exercise"
-            r
-            disabled={workoutTemplate.length === 0}
+            disabled={workoutTemplate.length === 0 || loading}
             onPress={startWorkout}
             icon={ArrowRight}
             colour={"default"}
@@ -243,6 +247,12 @@ const styles = StyleSheet.create({
     paddingRight: 50,
     flexDirection: "row",
     gap: 10,
+  },
+
+  loadingContainer: {
+    paddingVertical: 60,
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   headerDescriptionText: {
@@ -296,40 +306,5 @@ const styles = StyleSheet.create({
     color: "#065F46",
     fontWeight: "600",
     fontSize: 12,
-  },
-
-  workoutSplitContainer: {
-    backgroundColor: "white",
-    // backgroundColor: "#f2f5f7",
-    marginHorizontal: 12,
-    borderRadius: 12,
-    paddingTop: 15,
-    paddingBottom: 15,
-
-    // iOS shadow
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 0,
-
-    // Android shadow
-    elevation: 0.2,
-  },
-
-  workoutSplitTitle: {
-    marginLeft: 25,
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-
-  workoutSplitDescription: {
-    fontSize: 12,
-    color: "#94A3B8",
-    fontWeight: "500",
-    flexWrap: "wrap",
-    marginLeft: 25,
-    marginRight: 25,
-    marginBottom: 15,
-    marginTop: 10,
   },
 });
