@@ -1,5 +1,4 @@
 import { Tabs } from "expo-router";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Platform } from "react-native";
 import { House, Dumbbell, ChartColumn, Settings } from "lucide-react-native";
 
@@ -10,9 +9,8 @@ export default function TabLayout() {
         tabBarActiveTintColor: "#6FCABA",
         tabBarStyle: {
           paddingTop: Platform.select({
-            ios: 10,
-            android: 0,
-
+            ios: 20,
+            android: 7,
           }),
         },
         tabBarLabelStyle: {
@@ -25,14 +23,14 @@ export default function TabLayout() {
         options={{
           headerTitle: "",
           headerTransparent: true,
-          title: "Home",
+          title: "",
           tabBarIcon: ({ color }) => <House size={28} color={color} />,
         }}
       />
       <Tabs.Screen
         name="workout"
         options={{
-          title: "workout",
+          title: "",
           headerTitle: "",
           headerTransparent: true,
           tabBarIcon: ({ color }) => <Dumbbell size={28} color={color} />,
@@ -41,7 +39,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="progress"
         options={{
-          title: "Progress",
+          title: "",
           headerTitle: "",
           headerTransparent: true,
           tabBarIcon: ({ color }) => <ChartColumn size={28} color={color} />,
@@ -50,7 +48,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="settings"
         options={{
-          title: "Settings",
+          title: "",
           headerTitle: "",
           headerTransparent: true,
           tabBarIcon: ({ color }) => <Settings size={28} color={color} />,

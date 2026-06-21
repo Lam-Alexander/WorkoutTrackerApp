@@ -31,20 +31,21 @@ const home = () => {
 
   const templates = [
     {
-      id: "New Template",
+      name: "New Template",
       isCreated: true,
     },
     {
-      id: "New Template2",
-      isCreated: true,
+      name: "New Template2",
+      
+      
     },
     {
-      id: "New Template3",
-      isCreated: true,
+      name: "New Template3",
+      
     },
     {
-      id: "New Template4",
-      isCreated: true,
+      name: "New Template4",
+      
     },
   ];
 
@@ -214,41 +215,46 @@ const home = () => {
               <FlatList
                 horizontal
                 data={templates}
-                keyExtractor={(item) => item.id}
+                keyExtractor={(item) => item.name}
                 ItemSeparatorComponent={() => <View style={{ width: 14 }} />}
-                renderItem={({ item }) => {
-                  if (item.isCreated) {
-                    return (
-                      <Pressable
-                        onPress={() => router.push("/templates/create")}
-                        style={{
-                          width: 144,
-                          height: 144,
-                          borderRadius: 24,
-                          borderWidth: 2,
-                          borderStyle: "dashed",
-                          borderColor: "#EBEBEB",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          marginTop: 25,
-                          gap: 25,
-                          // position: "relative",
-                        }}
-                      >
-                        <Plus color={"#94A3B8"} />
-                        <Text
-                          style={{
-                            fontSize: 15,
-                            fontWeight: "600",
-                          }}
-                        >
-                          {item.id}
-                        </Text>
-                      </Pressable>
-                    );
-                  }
-                  return null;
-                }}
+                renderItem={({ item }) =>
+                  item.isCreated ? (
+                    <Pressable
+                      onPress={() => router.push("/templates/create")}
+                      style={{
+                        width: 144,
+                        height: 144,
+                        borderRadius: 24,
+                        borderWidth: 2,
+                        borderStyle: "dashed",
+                        borderColor: "#EBEBEB",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginTop: 25,
+                        gap: 25,
+                      }}
+                    >
+                      <Plus color={"#94A3B8"} />
+                      <Text style={{ fontSize: 15, fontWeight: "600" }}>{item.name}</Text>
+                    </Pressable>
+                  ) : <Pressable
+                  onPress={() => router.push("/templates/create")}
+                  style={{
+                    width: 144,
+                    height: 144,
+                    borderRadius: 24,
+                    borderWidth: 2,
+                    borderColor: "#EBEBEB",
+                    backgroundColor: "white",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginTop: 25,
+                    gap: 25,
+                  }}
+                >
+                  <Text style={{ fontSize: 15, fontWeight: "600" }}>{item.name}</Text>
+                </Pressable>
+                }
               />
             </View>
           </View>
