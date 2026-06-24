@@ -459,6 +459,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const trackWorkout = () => {
   const [exercise, setExercise] = useState([]);
   const [isSaved, setIsSaved] = useState(false);
+  const [templateName, setTemplateName] = useState("");
 
   const { workoutLogId } = useLocalSearchParams();
   const navigation = useNavigation();
@@ -488,6 +489,7 @@ const trackWorkout = () => {
         .from("exercise_log")
         .select(
           `id,
+          workout_template_name,
           workout_log_id,
           exercise_log_order_idx,
           exercise_template (
@@ -511,6 +513,8 @@ const trackWorkout = () => {
       if (exerciseLogError) {
         console.log("Error", exerciseLogError.message);
       }
+
+      setTemplateName(exerciseLogData[0]?.workout_template_name ?? "");
 
       const formattedData = exerciseLogData.map((ex) => ({
         exerciseId: ex.id,
@@ -636,14 +640,15 @@ const trackWorkout = () => {
             <Text style={styles.dateContainer}>{today}</Text>
           </View>
           <View style={styles.headerRow}>
-            <Text style={styles.title}>Today's Plan</Text>
+            <Text style={styles.title}>Today's <Text style={{color: "#2AD4B2"}}>Plan</Text></Text>
             <View style={styles.dayPlanContainer}>
-              <Text style={styles.dayPlanText}>Day plan</Text>
+              <Text style={styles.dayPlanText}>{templateName} day</Text>
             </View>
           </View>
           <View>
             <Text style={[styles.headerDescription, { marginTop: 15 }]}>
-            Record your sets, reps, and weight for today's session and track progress over time.
+              Record your sets, reps, and weight for today's session and track
+              progress over time.
             </Text>
           </View>
         </View>

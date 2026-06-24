@@ -85,6 +85,7 @@ const workout = () => {
 
     const userId = session.session.user.id;
     const templateId = selectedTemplate.templateId;
+    const templateName = selectedTemplate.templateName;
 
     const { data: workoutLogData, error: workoutLogError } = await supabase
       .from("workout_log")
@@ -92,6 +93,7 @@ const workout = () => {
         {
           profile_id: userId,
           workout_template_id: templateId,
+          workout_template_name: templateName,
           workout_date: new Date().toDateString(),
         },
       ])
@@ -114,6 +116,8 @@ const workout = () => {
       workout_log_id: workoutLogId,
       exercise_template_id: ex.exerciseId,
       exercise_log_order_idx: ex.exerciseIdx,
+      exercise_name: ex.exerciseName,
+      workout_template_name: templateName,
     }));
 
     const { data: exerciseLogData, error: exerciseLogError } = await supabase
@@ -157,10 +161,10 @@ const workout = () => {
             <Text style={styles.dateContainer}>{today}</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.title}>Choose your {"\n"}workout</Text>
-            <View style={styles.dayPlanContainer}>
+            <Text style={styles.title}>Choose your <Text style={{color: "#2AD4B2"}}>Workout</Text></Text>
+            {/* <View style={styles.dayPlanContainer}>
               <Text style={styles.dayPlanText}>Day plan</Text>
-            </View>
+            </View> */}
           </View>
           <View>
             <Text style={styles.headerDescriptionText}>
