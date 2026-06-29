@@ -25,6 +25,7 @@ export default function TabLayout() {
           headerTransparent: true,
           title: "",
           tabBarIcon: ({ color }) => <House size={28} color={color} />,
+          popToTopOnBlur: true
         }}
       />
       <Tabs.Screen

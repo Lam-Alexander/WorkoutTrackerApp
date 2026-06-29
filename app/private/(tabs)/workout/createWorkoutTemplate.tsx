@@ -3,7 +3,6 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   Alert,
   ScrollView,
   KeyboardAvoidingView,
@@ -195,7 +194,7 @@ const createWorkoutTemplate = () => {
               </View>
               <View>
                 <Text style={styles.headerTitleText}>
-                  Create your workout template
+                  Create your <Text style={{color: "#2AD4B2"}}>Template</Text>
                 </Text>
               </View>
               <View>
