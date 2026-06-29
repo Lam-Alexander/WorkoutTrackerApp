@@ -98,7 +98,7 @@ const createWorkoutTemplate = () => {
     setExercise(newArr);
   };
 
-  const handleCreateWorkoutTemplate = async () => {
+  const handleSaveTemplate = async () => {
     if (!session) {
       Alert.alert("No session found");
       return;
@@ -386,7 +386,7 @@ const createWorkoutTemplate = () => {
           />
           <AppCustomButton
             title="Save workout template"
-            onPress={handleCreateWorkoutTemplate}
+            onPress={handleSaveTemplate}
             icon={Check}
             colour={"default"}
             style={{ marginTop: 25, width: "100%" }}

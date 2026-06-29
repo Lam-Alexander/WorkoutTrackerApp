@@ -87,6 +87,7 @@ const Signup = () => {
   };
 
   return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -95,7 +96,6 @@ const Signup = () => {
         contentContainerStyle={{ flexGrow: 1 }}
         keyboardShouldPersistTaps="handled"
       >
-        <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
           <View style={{ flex: 1 }}>
             <View>
               <Text
@@ -103,7 +103,7 @@ const Signup = () => {
                   textAlign: "center",
                   fontSize: 28,
                   fontWeight: "bold",
-                  marginTop: -25,
+                  // marginTop: -25,
                 }}
               >
                 Fit<Text style={{ color: "#00dfc0" }}>Tracker.</Text>
@@ -207,9 +207,9 @@ const Signup = () => {
               </View>
             </View>
           </View>
-        </SafeAreaView>
       </ScrollView>
     </KeyboardAvoidingView>
+        </SafeAreaView>
   );
 };
 

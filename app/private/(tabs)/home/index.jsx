@@ -521,6 +521,7 @@ const home = () => {
         style={{ flex: 1 }}
         contentContainerStyle={{ paddingBottom: 25 }}
       >
+        {/* ── header ── */}
         <View style={{ paddingHorizontal: 25, paddingTop: 25 }}>
           <View>
             <View
@@ -550,6 +551,7 @@ const home = () => {
             </Text>
           </View>
 
+          {/* ── Weekly Overview ── */}
           <View style={styles.weeklyOverviewContainer}>
             <View>
               <Text style={styles.weeklyOverview}>Weekly Overview</Text>
@@ -641,6 +643,7 @@ const home = () => {
             </View>
           </View>
 
+          {/* ── Split Template ── */}
           <View>
             <View
               style={{
@@ -784,6 +787,7 @@ const home = () => {
             </View>
           </View>
 
+          {/* ── Manage ── */}
           <View style={{ marginTop: 40 }}>
             <View>
               <Text

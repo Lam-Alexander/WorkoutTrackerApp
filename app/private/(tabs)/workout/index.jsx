@@ -161,7 +161,9 @@ const workout = () => {
             <Text style={styles.dateContainer}>{today}</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.title}>Choose your <Text style={{color: "#2AD4B2"}}>Workout</Text></Text>
+            <Text style={styles.title}>
+              Choose your <Text style={{ color: "#2AD4B2" }}>Workout</Text>
+            </Text>
             {/* <View style={styles.dayPlanContainer}>
               <Text style={styles.dayPlanText}>Day plan</Text>
             </View> */}
